@@ -1,3 +1,13 @@
+<?php
+session_start();
+if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
+    $host  = $_SERVER['HTTP_HOST'];
+    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    header("location: http://$host/JuntaCartago/JuntaCartago/login");// sino mandelo hacia acá
+}
+//echo "<a id='cerrar'>".$_SESSION["nombre"]." ".$_SESSION["apellido"]." </a>";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +16,7 @@
     <title>Registro de Documentos - Junta De Cartago</title>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="./js/script.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -69,17 +80,11 @@
                         <a href="#" class="nav-link" data-bs-toggle="dropdown" aria-label="Open user menu" aria-expanded="false">
 
                             <div class="d-none d-xl-block ps-2">
-                                <div>Test</div>
+                                <div><?php  echo $_SESSION["nombre"]." ".$_SESSION["apellido"];?></div>
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">                    
-                            <a href="#" class="dropdown-item">
-                                <i class="bi bi-person-circle"></i> Perfil
-                            </a>
-                            <a href="#" class="dropdown-item">
-                                <i class="bi bi-gear"></i> Configuración
-                            </a>
-                            <a href="#" class="dropdown-item">
+                            <a id="cerrar" href="#" class="dropdown-item">
                                 <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
                             </a>
                 
