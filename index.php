@@ -1,10 +1,12 @@
-<?php
+<?php require "config.php";
 session_start();
 if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
     $host  = $_SERVER['HTTP_HOST'];
     $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
     header("location: http://$host/JuntaCartago/JuntaCartago/login");// sino mandelo hacia acá
 }
+
+$query = $conn->query("select * from documento order by fecha_ingreso desc limit 3;");
 //echo "<a id='cerrar'>".$_SESSION["nombre"]." ".$_SESSION["apellido"]." </a>";
 ?>
 
@@ -14,7 +16,7 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Documentos - Junta De Cartago</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="./css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="./js/script.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -28,7 +30,7 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
     <nav class="border-bottom border-2 navbar navbar-expand-lg bg-body-tertiary" style="background: #ffffff!important;">
         <div class="container-fluid">
             <a href="#">
-                <img src="../img/logo.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+                <img src="./img/logo.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -109,7 +111,7 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
                             Bienvenido,
                         </div>
                         <h2 class="page-title">
-                            [Nombre del Usuario]
+                            <?php echo $_SESSION["nombre"]." ".$_SESSION["apellido"];?>
                         </h2>
                         <p>En esta plataforma, puedes acceder y gestionar documentos importantes para la Junta De Educación de Cartago, como actas, contratos, etc.</p>
                     </div>
@@ -125,11 +127,22 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
                             <div class="card">
                                 <div class="card-body">
                                 <h5 class="card-title">Documentos Recientes</h5>
+                                <?php
+
+                                if($query->num_rows > 0){
+                                while ($row = $query->fetch_assoc()){
+                                    $nombre = $row['nombre'];
+                                    $fecha_ingreso = $row['fecha_ingreso'];
+                                    ?>
                                 <ul class="list-group">
-                                    <li class="list-group-item"><a href="#">Acta de la última reunión</a></li>
-                                    <li class="list-group-item"><a href="#">Contrato con proveedor</a></li>
-                                    <li class="list-group-item"><a href="#">Informe financiero trimestral</a></li>
+                                    <li class="list-group-item my-2 p-2"><a><?php echo $nombre; ?></a></li>
                                 </ul>
+                                <?php
+                                    }
+                                } else {
+                                    echo "No hay registros.<br>";
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

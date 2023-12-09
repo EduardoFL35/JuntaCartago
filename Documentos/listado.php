@@ -1,3 +1,9 @@
+<?php require "../config.php";
+
+$query = $conn->query("select * from documento");    
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -143,52 +149,68 @@
                                 </tr>
                                 </thead>
 
-                                <tbody>
-                                    <tr>
-										<td class="td-list">SF_JI780</td>
-										<td class="td-list">2023-11-01</td>
-										<td class="td-list">Oficio</td>
-										<td class="td-list">Documento</td>
+                                <?php
 
-                                        <td class="td-list">
-                                            <div class="btn-list flex-nowrap">
-                                                <div class="dropdown">
-                                                    <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
-                                                        Opciones
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item" href="#">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                                <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
-                                                                <path d="M21 21l-6 -6"></path>
-                                                            </svg>
-                                                            Ver
-                                                        </a>
-                                                        <a class="dropdown-item" href="#">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
-                                                                <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
-                                                                <path d="M16 5l3 3"></path>
-                                                            </svg>
-                                                           Editar
-                                                        </a>
-                                                        <form action="#" method="POST">
-                                                            <input type="hidden" name="_token" value="2atWpGYdcoqQKeHMiUHLvChu6BuXb1n6aW0VWbDa" autocomplete="off">                                                            <input type="hidden" name="_method" value="DELETE">                                                            <button type="submit" onclick="if(!confirm('¿Seguro que quieres eliminarlo?')){return false;}" class="dropdown-item text-red"><i class="fa fa-fw fa-trash"></i>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eraser" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                                        <path d="M19 20h-10.5l-4.21 -4.3a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41l-9.2 9.3"></path>
-                                                                        <path d="M18 13.3l-6.3 -6.3"></path>
-                                                                    </svg>    
-                                                                Eliminar
-                                                            </button>
-                                                        </form>
+                                if($query->num_rows > 0){
+                                while ($row = $query->fetch_assoc()){
+                                    $id = $row['id'];
+                                    $nombre = $row['nombre'];
+                                    $fecha_ingreso = $row['fecha_ingreso'];
+                                    $tipo_documento = $row['tipo_documento'];
+                                    $descripcion = $row['descripcion'];
+                                    ?>
+                                    <tbody>
+                                        <tr>
+                                            <td class="td-list"><?php echo $nombre; ?></td>
+                                            <td class="td-list"><?php echo $fecha_ingreso; ?></td>
+                                            <td class="td-list"><?php echo $tipo_documento; ?></td>
+                                            <td class="td-list"><?php echo $descripcion; ?></td>
+
+                                            <td class="td-list">
+                                                <div class="btn-list flex-nowrap">
+                                                    <div class="dropdown">
+                                                        <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
+                                                            Opciones
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a class="dropdown-item" href="#">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                                    <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
+                                                                    <path d="M21 21l-6 -6"></path>
+                                                                </svg>
+                                                                Ver
+                                                            </a>
+                                                            <a class="dropdown-item" href="#">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
+                                                                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
+                                                                    <path d="M16 5l3 3"></path>
+                                                                </svg>
+                                                            Editar
+                                                            </a>
+                                                            <form action="#" method="POST">
+                                                                <input type="hidden" name="_token" value="2atWpGYdcoqQKeHMiUHLvChu6BuXb1n6aW0VWbDa" autocomplete="off">                                                            <input type="hidden" name="_method" value="DELETE">                                                            <button type="submit" onclick="if(!confirm('¿Seguro que quieres eliminarlo?')){return false;}" class="dropdown-item text-red"><i class="fa fa-fw fa-trash"></i>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eraser" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                                            <path d="M19 20h-10.5l-4.21 -4.3a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41l-9.2 9.3"></path>
+                                                                            <path d="M18 13.3l-6.3 -6.3"></path>
+                                                                        </svg>    
+                                                                    Eliminar
+                                                                </button>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                <?php
+                                    }
+                                } else {
+                                    echo "No hay registros.<br>";
+                                }
+                                ?>
                             </tbody>
 
                             </table>
