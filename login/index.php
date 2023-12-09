@@ -4,7 +4,7 @@ $host  = $_SERVER['HTTP_HOST'];
 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 
 if (isset($_SESSION["username"])) { //SI LA VARIABLE ESTÁ DEFINIDA
-    header("location: http://$host/JuntaCartago/JuntaCartago/");// sino mandelo hacia acá
+    header("location: http://$host/Proyecto/Git/JuntaCartago/");// sino mandelo hacia acá
 }
 
 

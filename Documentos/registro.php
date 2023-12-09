@@ -1,5 +1,12 @@
-<?php require "../config.php"; 
+<?php require "../config.php";
+session_start();
+if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
+    $host  = $_SERVER['HTTP_HOST'];
+    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    header("location: http://$host/Proyecto/Git/JuntaCartago/login");// sino mandelo hacia acá
+}
 
+//echo "<a id='cerrar'>".$_SESSION["nombre"]." ".$_SESSION["apellido"]." </a>";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,33 +24,30 @@
 </head>
 </head>
 <body class="bg-light">
-    <nav class="border-bottom border-2 navbar navbar-expand-lg bg-body-tertiary" style="background: #ffffff!important;">
+    <nav class="border-bottom border-2 navbar navbar-expand-lg nav-fondo">
         <div class="container-fluid">
-            <a href="#">
+            <a href="../index.php">
                 <img src="../img/logo.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">
+                        <a class="nav-link" aria-current="page" href="../index.php">
                             <i class="m-2 bi bi-house"></i>Inicio
                         </a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link " href="registro.html">
+                    <li class="nav-item">
+                        <a class="nav-link" href="registro.php">
                             <i class="m-2 bi bi-file-earmark-arrow-down"></i>Documentos
                         </a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="listado.html">
+                    <li class="nav-item">
+                        <a class="nav-link" href="listado.php">
                             <i class="m-2 bi bi-search"></i>Búsqueda de Documentos
                         </a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="control.html">
+                    <li class="nav-item">
+                        <a class="nav-link" href="control.php">
                             <i class="m-2 bi bi-folder-check"></i>Control de Archivos
                         </a>
                     </li>
@@ -70,26 +74,14 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-bs-toggle="dropdown" aria-label="Open user menu" aria-expanded="false">
-
                             <div class="d-none d-xl-block ps-2">
-                                <div>Test</div>
+                                <div><?php  echo $_SESSION["nombre"]." ".$_SESSION["apellido"];?></div>
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">                    
-                            <a href="#" class="dropdown-item">
-                                <i class="bi bi-person-circle"></i> Perfil
-                            </a>
-                            <a href="#" class="dropdown-item">
-                                <i class="bi bi-gear"></i> Configuración
-                            </a>
-                            <a href="#" class="dropdown-item">
+                            <a id="cerrar" href="#" class="dropdown-item">
                                 <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
-                            </a>
-                
-                            <form id="logout-form" action="" method="POST" style="display: none;">
-                                            <input type="hidden" name="_token" value="2atWpGYdcoqQKeHMiUHLvChu6BuXb1n6aW0VWbDa" autocomplete="off">
-                            </form>
-                
+                            </a> 
                         </div>
                     </li>
                 </ul>

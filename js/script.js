@@ -13,7 +13,7 @@ jQuery(document).ready(function(){
 			success:function(ndata){  
 				switch (ndata) {
                     case "1":
-                        location.href ='http://localhost/JuntaCartago/JuntaCartago/';
+                        location.href ='http://localhost/Proyecto/Git/JuntaCartago/';
                         break;  
                     default:
                         break;

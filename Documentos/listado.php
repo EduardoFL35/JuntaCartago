@@ -1,4 +1,10 @@
 <?php require "../config.php";
+session_start();
+if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
+    $host  = $_SERVER['HTTP_HOST'];
+    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    header("location: http://$host/Proyecto/Git/JuntaCartago/login");// sino mandelo hacia acá
+}
 
 $query = $conn->query("select * from documento");    
 ?>
@@ -20,33 +26,30 @@ $query = $conn->query("select * from documento");
 </head>
 </head>
 <body class="bg-light">
-    <nav class="border-bottom border-2 navbar navbar-expand-lg bg-body-tertiary" style="background: #ffffff!important;">
+    <nav class="border-bottom border-2 navbar navbar-expand-lg nav-fondo">
         <div class="container-fluid">
-            <a href="#">
+            <a href="../index.php">
                 <img src="../img/logo.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">
+                        <a class="nav-link" aria-current="page" href="../index.php">
                             <i class="m-2 bi bi-house"></i>Inicio
                         </a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link " href="registro.html">
+                    <li class="nav-item">
+                        <a class="nav-link" href="registro.php">
                             <i class="m-2 bi bi-file-earmark-arrow-down"></i>Documentos
                         </a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="listado.html">
+                    <li class="nav-item">
+                        <a class="nav-link" href="listado.php">
                             <i class="m-2 bi bi-search"></i>Búsqueda de Documentos
                         </a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="control.html">
+                    <li class="nav-item">
+                        <a class="nav-link" href="control.php">
                             <i class="m-2 bi bi-folder-check"></i>Control de Archivos
                         </a>
                     </li>
@@ -73,26 +76,14 @@ $query = $conn->query("select * from documento");
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-bs-toggle="dropdown" aria-label="Open user menu" aria-expanded="false">
-
                             <div class="d-none d-xl-block ps-2">
-                                <div>Test</div>
+                                <div><?php  echo $_SESSION["nombre"]." ".$_SESSION["apellido"];?></div>
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">                    
-                            <a href="#" class="dropdown-item">
-                                <i class="bi bi-person-circle"></i> Perfil
-                            </a>
-                            <a href="#" class="dropdown-item">
-                                <i class="bi bi-gear"></i> Configuración
-                            </a>
-                            <a href="#" class="dropdown-item">
+                            <a id="cerrar" href="#" class="dropdown-item">
                                 <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
-                            </a>
-                
-                            <form id="logout-form" action="" method="POST" style="display: none;">
-                                            <input type="hidden" name="_token" value="2atWpGYdcoqQKeHMiUHLvChu6BuXb1n6aW0VWbDa" autocomplete="off">
-                            </form>
-                
+                            </a> 
                         </div>
                     </li>
                 </ul>
@@ -115,7 +106,7 @@ $query = $conn->query("select * from documento");
                 <!-- Page title actions -->
                 <div class="col-12 col-md-auto ms-auto d-print-none">
                     <div class="btn-list">
-                        <a href="../Documentos/registro.html" style="color: #ffffff; background-color: #001F3F;" class="btn d-none d-sm-inline-block">
+                        <a href="registro.php" style="color: #ffffff; background-color: #001F3F;" class="btn d-none d-sm-inline-block">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -134,12 +125,9 @@ $query = $conn->query("select * from documento");
             <div class="row row-deck row-cards">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Documentos</h3>
-                        </div>
                         <div class="table-responsive min-vh-100">
                             <table class="table card-table table-vcenter text-nowrap datatable">
-                                <thead>
+                                <thead class="table-secondary ">
                                 <tr>
 									<th class="th-list">Nombre</th>
 									<th class="th-list">Fecha Ingreso</th>
@@ -167,43 +155,30 @@ $query = $conn->query("select * from documento");
                                             <td class="td-list"><?php echo $descripcion; ?></td>
 
                                             <td class="td-list">
-                                                <div class="btn-list flex-nowrap">
-                                                    <div class="dropdown">
-                                                        <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
-                                                            Opciones
-                                                        </button>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" href="#">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                                    <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
-                                                                    <path d="M21 21l-6 -6"></path>
-                                                                </svg>
-                                                                Ver
-                                                            </a>
-                                                            <a class="dropdown-item" href="#">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
-                                                                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
-                                                                    <path d="M16 5l3 3"></path>
-                                                                </svg>
-                                                            Editar
-                                                            </a>
-                                                            <form action="#" method="POST">
-                                                                <input type="hidden" name="_token" value="2atWpGYdcoqQKeHMiUHLvChu6BuXb1n6aW0VWbDa" autocomplete="off">                                                            <input type="hidden" name="_method" value="DELETE">                                                            <button type="submit" onclick="if(!confirm('¿Seguro que quieres eliminarlo?')){return false;}" class="dropdown-item text-red"><i class="fa fa-fw fa-trash"></i>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eraser" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                                            <path d="M19 20h-10.5l-4.21 -4.3a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41l-9.2 9.3"></path>
-                                                                            <path d="M18 13.3l-6.3 -6.3"></path>
-                                                                        </svg>    
-                                                                    Eliminar
-                                                                </button>
-                                                            </form>
-                                                        </div>
+                                            <div class="btn-list flex-nowrap">
+                                                <div class="dropdown">
+                                                    <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
+                                                        Opciones
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a class="dropdown-item" href="#">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                           Editar
+                                                        </a>
+  
+                                                        <a class="dropdown-item text-red" href="#">
+                                                            <i class="bi bi-eraser"></i>    
+                                                            Eliminar
+                                                        </a>
+
+                                                        <a class="dropdown-item" href="#">
+                                                            <i class="bi bi-download"></i>
+                                                            Descargar
+                                                        </a>
                                                     </div>
                                                 </div>
-                                            </td>
+                                            </div>
+                                        </td>
                                         </tr>
                                 <?php
                                     }

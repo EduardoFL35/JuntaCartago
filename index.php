@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
     $host  = $_SERVER['HTTP_HOST'];
     $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-    header("location: http://$host/JuntaCartago/JuntaCartago/login");// sino mandelo hacia acá
+    header("location: http://$host/Proyecto/Git/JuntaCartago/login");// sino mandelo hacia acá
 }
 
 $query = $conn->query("select * from documento order by fecha_ingreso desc limit 3;");
@@ -27,33 +27,30 @@ $query = $conn->query("select * from documento order by fecha_ingreso desc limit
 </head>
 </head>
 <body class="bg-light">
-    <nav class="border-bottom border-2 navbar navbar-expand-lg bg-body-tertiary" style="background: #ffffff!important;">
+    <nav class="border-bottom border-2 navbar navbar-expand-lg nav-fondo">
         <div class="container-fluid">
-            <a href="#">
+            <a href="index.php">
                 <img src="./img/logo.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">
+                        <a class="nav-link" aria-current="page" href="index.php">
                             <i class="m-2 bi bi-house"></i>Inicio
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="registro.html">
+                        <a class="nav-link" href="./Documentos/registro.php">
                             <i class="m-2 bi bi-file-earmark-arrow-down"></i>Documentos
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="listado.html">
+                        <a class="nav-link" href="./Documentos/listado.php">
                             <i class="m-2 bi bi-search"></i>Búsqueda de Documentos
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="control.html">
+                        <a class="nav-link" href="./Documentos/control.php">
                             <i class="m-2 bi bi-folder-check"></i>Control de Archivos
                         </a>
                     </li>
@@ -80,7 +77,6 @@ $query = $conn->query("select * from documento order by fecha_ingreso desc limit
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-bs-toggle="dropdown" aria-label="Open user menu" aria-expanded="false">
-
                             <div class="d-none d-xl-block ps-2">
                                 <div><?php  echo $_SESSION["nombre"]." ".$_SESSION["apellido"];?></div>
                             </div>
@@ -88,12 +84,7 @@ $query = $conn->query("select * from documento order by fecha_ingreso desc limit
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">                    
                             <a id="cerrar" href="#" class="dropdown-item">
                                 <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
-                            </a>
-                
-                            <form id="logout-form" action="http://127.0.0.1:8000/logout" method="POST" style="display: none;">
-                                            <input type="hidden" name="_token" value="2atWpGYdcoqQKeHMiUHLvChu6BuXb1n6aW0VWbDa" autocomplete="off">
-                            </form>
-                
+                            </a> 
                         </div>
                     </li>
                 </ul>
