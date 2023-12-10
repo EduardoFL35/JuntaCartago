@@ -10,6 +10,7 @@
     <title>Registro - Junta De Cartago</title>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/script.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <!--Fuente -->
@@ -22,7 +23,7 @@
                 <h3 class="text-center card-title">Registro</h3>  
             </div>
             <div class="card-body">
-                <form id="cita_form">
+                <form id="registro_usr">
                     <div class="form-group row">
                         <div class="col-sm-6">
                             <label class="form-label">Nombre</label>
@@ -35,6 +36,13 @@
                             <div>
                                 <input type="text" class="form-control" id="apellido_usr" name="apellido_usr" placeholder="Apellidos">
                             </div>
+                        </div>
+                    </div>
+                    <br>                  
+                    <div class="">
+                        <label class="form-label">Cédula</label>
+                        <div>
+                            <input type="text" class="form-control" id="cedula_usr" name="cedula_usr" placeholder="Introduce tu número de cédula">
                         </div>
                     </div>
                     <br>                  
@@ -54,8 +62,13 @@
                     <br>
                     <div class=" text-center form-footer">
                         <button type="submit" style="color: #ffffff; background-color: #001F3F;" class="btn ">Registrarme</button>
-                    </div>             
-                </form>                                    
+                    </div> 
+                    <div id="res_registro">
+                        
+                    </div>         
+                    
+                </form> 
+                                                   
             </div>  
         </div>
     </div>

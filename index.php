@@ -15,7 +15,7 @@ $query = $conn->query("select * from documento order by fecha_ingreso desc limit
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Documentos - Junta De Cartago</title>
+    <title>Inicio - Junta De Cartago</title>
     <link rel="stylesheet" href="./css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="./js/script.js"></script>
