@@ -146,6 +146,8 @@ $query = $conn->query("select * from documento");
                                     $fecha_ingreso = $row['fecha_ingreso'];
                                     $tipo_documento = $row['tipo_documento'];
                                     $descripcion = $row['descripcion'];
+                                    $nombre_archivo = $row['url'];
+                                    
                                     ?>
                                     <tbody>
                                         <tr>
@@ -171,7 +173,7 @@ $query = $conn->query("select * from documento");
                                                             Eliminar
                                                         </a>
 
-                                                        <a class="dropdown-item" href="#">
+                                                        <a class="dropdown-item" href="http://localhost/Proyecto/Git/JuntaCartago/js/<?php echo $nombre_archivo; ?>">
                                                             <i class="bi bi-download"></i>
                                                             Descargar
                                                         </a>

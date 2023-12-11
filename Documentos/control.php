@@ -6,6 +6,11 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
     header("location: http://$host/Proyecto/Git/JuntaCartago/login");// sino mandelo hacia acá
 }
 
+if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
+    echo "<p>No tiene permisos</p>";
+    die();
+}
+
 //echo "<a id='cerrar'>".$_SESSION["nombre"]." ".$_SESSION["apellido"]." </a>";
 ?>
 <!DOCTYPE html>

@@ -50,11 +50,15 @@ $query = $conn->query("select * from documento order by fecha_ingreso desc limit
                             <i class="m-2 bi bi-search"></i>Búsqueda de Documentos
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./Documentos/control.php">
-                            <i class="m-2 bi bi-folder-check"></i>Control de Archivos
-                        </a>
-                    </li>
+                    <?php if ($_SESSION["rol"] == 1) {
+                        ?><li class="nav-item">
+                                <a class="nav-link" href="./Documentos/control.php">
+                                    <i class="m-2 bi bi-folder-check"></i>Control de Archivos
+                                </a>
+                            </li>
+                    <?php
+                    } ?>
+
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
