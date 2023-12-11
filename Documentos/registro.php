@@ -16,6 +16,7 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
     <title>Página de Inicio - Junta De Cartago</title>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../js/documentos.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -96,7 +97,7 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
             </div>
             <div class="card-body">
 
-                <form id="cita_form">
+                <form id="documento_form">
                     <div class="form-group row">
                         <div class="col-sm-6">
                             <label class="form-label">Nombre</label>
@@ -140,7 +141,8 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
                     <div class="form-group row">
                         <div class="col-sm-6">
                             <label for="archivo" class="form-label">Cargar Documento</label>
-                        <input type="file" class="form-control form-control-file" id="archivo">
+                        <input type="file" name="archivo" class="form-control form-control-file" id="archivo">
+                        <input type="hidden" id="nombre_archivo">
                         </div>
                     </div>
                     <br>
@@ -148,7 +150,7 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
                         <div class="text-end">
                             <div class="d-flex">
                                 <a href="#" class="btn btn-danger">Cancelar</a>
-                                <button type="submit" style="color: #ffffff; background-color: #001F3F;" class="btn ms-auto ajax-submit">Guardar</button>
+                                <button id="action" type="submit" style="color: #ffffff; background-color: #001F3F;" class="btn ms-auto">Guardar</button>
                             </div>
                         </div>
                     </div>           

@@ -27,6 +27,7 @@ $query = $conn->query("select * from documento order by fecha_ingreso desc limit
 </head>
 </head>
 <body class="bg-light">
+
     <nav class="border-bottom border-2 navbar navbar-expand-lg nav-fondo">
         <div class="container-fluid">
             <a href="index.php">
@@ -78,7 +79,7 @@ $query = $conn->query("select * from documento order by fecha_ingreso desc limit
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-bs-toggle="dropdown" aria-label="Open user menu" aria-expanded="false">
                             <div class="d-none d-xl-block ps-2">
-                                <div><?php  echo $_SESSION["nombre"]." ".$_SESSION["apellido"];?></div>
+                                <div><?php  echo $_SESSION["nombre"]." ".$_SESSION["apellido"]." ".$_SESSION["rol"];?></div>
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">                    

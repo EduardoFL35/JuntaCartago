@@ -17,6 +17,7 @@ if($_POST['key'] == "login"){
             $_SESSION["correo"] =$row['correo'];
             $_SESSION["nombre"] =$row['name'];
             $_SESSION["apellido"] =$row['apellido'];
+            $_SESSION["rol"] = $row['rol'];
             
         }
         echo "1";//Success
@@ -52,6 +53,7 @@ if($_POST['key'] == "login"){
         }
           
     $conn->close();
+
 }
 
 ?>
