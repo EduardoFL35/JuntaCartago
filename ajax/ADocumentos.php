@@ -1,5 +1,5 @@
 <?php 
-
+session_start();
 include "../config.php";
 //var_dump($_POST);
 //die();
@@ -10,9 +10,10 @@ if(isset($_POST['key_registro']) == "registro_doc"){
     $tipo_doc = $_POST['tipo_doc'];
     $desc_doc = $_POST['desc_doc'];
     $nombre_archivo = "archivos/".$_POST['nombre_archivo'];
+    $id_usuario = $_SESSION["id_user"];
 
-    $sql = "INSERT INTO documento(nombre, fecha_ingreso, tipo_documento, descripcion, estado, url) 
-                                VALUES ('".$nombre_doc."','".$fecha_doc."','".$tipo_doc."','".$desc_doc."',1, '".$nombre_archivo."')";
+    $sql = "INSERT INTO documento(nombre, fecha_ingreso, tipo_documento, descripcion, estado, url, id_usuario) 
+                                VALUES ('".$nombre_doc."','".$fecha_doc."','".$tipo_doc."','".$desc_doc."',1, '".$nombre_archivo."', '".$id_usuario."')";
     
 
 	if ($conn->query($sql) === TRUE) {
