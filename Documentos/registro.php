@@ -91,6 +91,8 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
     </nav>
 
     <div class="container my-4">
+        <div id="alerta_registro">
+        </div>
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Registro de Documentos</h3>  

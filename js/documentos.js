@@ -49,11 +49,13 @@ jQuery(document).ready( function () {
                 console.log(ndata);
 				switch (ndata) {
                     case "1":
-                        jQuery("#action").html("<p>Se guardó un documento correctamente</p>")
+                        jQuery("#alerta_registro").addClass("alert alert-success")
+                        jQuery("#alerta_registro").html("Se guardó un documento correctamente!")
                         break;
 
                     case "a":
-                        jQuery("#action").html("<p>Error al ingresar datos</p>")
+                        jQuery("#alerta_registro").addClass("alert alert-danger")
+                        jQuery("#alerta_registro").html("¡Error al ingresar datos!")
                         break;    
                 
                     default:
