@@ -42,8 +42,8 @@ if($_POST['key'] == "login"){
     $correo_usr = $_POST['correo_usr'];
     $password_usr = md5($_POST['password_usr']);
     
-    $sql = "INSERT INTO `usuario`(`name`, `apellido`, `cedula`, `correo`, `password`) 
-                    VALUES ('".$nombre_usr."','".$apellido_usr."','".$cedula_usr."','".$correo_usr."','".$password_usr."')";
+    $sql = "INSERT INTO `usuario`(`name`, `apellido`, `cedula`, `correo`, `password`, `estado`) 
+                    VALUES ('".$nombre_usr."','".$apellido_usr."','".$cedula_usr."','".$correo_usr."','".$password_usr."', 1)";
         
     
     if ($conn->query($sql) === TRUE) {
