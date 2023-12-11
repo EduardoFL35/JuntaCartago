@@ -56,5 +56,16 @@ if(isset($_POST['key_registro']) == "registro_doc"){
             echo "a";
         }
 
+}elseif (isset($_POST['key_eliminar']) == "eliminar_tarea") {
+    $id_documento = $_POST['id_documento'];
+    $eliminar = "UPDATE `documento` SET `estado`= 0 WHERE id = '$id_documento';";
+      
+    if ($conn->query($eliminar) === TRUE) {
+        echo "1";//Succes
+        } else {
+        echo "a";//Error
+        }
+        
+    $conn->close();
 }
 ?>

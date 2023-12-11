@@ -6,7 +6,7 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
     header("location: http://$host/Proyecto/Git/JuntaCartago/login");// sino mandelo hacia acá
 }
 
-$query = $conn->query("select * from documento");    
+$query = $conn->query("select * from documento where estado = 1");    
 ?>
 
 
@@ -18,6 +18,7 @@ $query = $conn->query("select * from documento");
     <title>Listado de Documentos - Junta De Cartago</title>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../js/documentos.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -163,17 +164,17 @@ $query = $conn->query("select * from documento");
                                                         Opciones
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item" href="#">
+                                                        <a id="btn_editar_doc" class="dropdown-item" data-bs-toggle="modal" data_id="<?php echo $id;?>" data-bs-target="#modalEditar">
                                                             <i class="bi bi-pencil-square"></i>
                                                            Editar
                                                         </a>
   
-                                                        <a class="dropdown-item text-red" href="#">
+                                                        <a data-id="<?php echo $id;?>" class=" eliminar dropdown-item text-red">
                                                             <i class="bi bi-eraser"></i>    
                                                             Eliminar
                                                         </a>
 
-                                                        <a class="dropdown-item" href="http://localhost/Proyecto/Git/JuntaCartago/js/<?php echo $nombre_archivo; ?>">
+                                                        <a id="btn_descargar_doc" class="dropdown-item" href="http://localhost/Proyecto/Git/JuntaCartago/js/<?php echo $nombre_archivo; ?>">
                                                             <i class="bi bi-download"></i>
                                                             Descargar
                                                         </a>
@@ -194,6 +195,21 @@ $query = $conn->query("select * from documento");
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal Editar -->
+    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Cita</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="modal_ajax">
+                    
+                </div>   
             </div>
         </div>
     </div>

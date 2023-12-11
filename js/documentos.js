@@ -1,6 +1,6 @@
 jQuery(document).ready( function () {
     console.log("Cargó el JS")
-
+    //Agregar Documentos
     jQuery("#documento_form").submit(function(){/*Acordarse que el # indica el id a la que se le da click*/
 		var nombre_doc = jQuery("#nombre_doc").val();
         var fecha_doc = jQuery("#fecha_doc").val();
@@ -50,7 +50,7 @@ jQuery(document).ready( function () {
 				switch (ndata) {
                     case "1":
                         jQuery("#alerta_registro").addClass("alert alert-success")
-                        jQuery("#alerta_registro").html("Se guardó un documento correctamente!")
+                        jQuery("#alerta_registro").html("¡Se guardó un documento correctamente!")
                         break;
 
                     case "a":
@@ -69,16 +69,16 @@ jQuery(document).ready( function () {
         return false;
 	});
 
-	//Elimminar
+	//Elimminar Documentos
     jQuery(".eliminar").click(function(){/*Acordarse que esto indica la clase a la que se le da click*/
-    var id_tarea = jQuery(this).attr("data-id");
+    var id_documento = jQuery(this).attr("data-id");
     jQuery.ajax({
         type: "POST", 
-        url: "./Ajax/ajax_tarea.php",
+        url: "../ajax/ADocumentos",
         dataType:"text",
         data:{
-            key: "eliminar_tarea",
-            id_tarea: id_tarea
+            key_eliminar: "eliminar_tarea",
+            id_documento: id_documento
         },             
         success:function(ndata){  
             switch (ndata) {
@@ -101,6 +101,34 @@ jQuery(document).ready( function () {
                 alert(thrownError);
             } 
         });
+        return false;
+    });
+
+    jQuery(".editar-btn").click(function(){
+        var id_edit = jQuery(this).attr("data_id");
+        jQuery.ajax({
+			type: "POST", 
+			url: "../ajax/ADocumentos",
+			dataType:"text",
+			data:{
+				key: "editar_documento",
+				id_edit: id_edit
+			},             
+			success:function(ndata){  
+				switch (ndata) {
+                    case "a":
+                        jQuery("#action").html("<p>Error al insertar datos</p>")
+                        break;    
+                    default:
+                        console.log(ndata);
+                        jQuery("#modal_ajax").html(ndata);
+                        break;
+                }                     
+			},
+			error:function (xhr, ajaxOptions, thrownError){                 
+				alert(thrownError);
+			} 
+		});
         return false;
     });
 
@@ -156,7 +184,5 @@ jQuery(document).ready( function () {
                 console.log("Error");
             }
         });
-    });
-
-    
+    }); 
 });
