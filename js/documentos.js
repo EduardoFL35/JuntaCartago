@@ -104,6 +104,7 @@ jQuery(document).ready( function () {
         return false;
     });
 
+    //Editar Documento
     jQuery(".editar-btn").click(function(){
         var id_edit = jQuery(this).attr("data_id");
         jQuery.ajax({
@@ -111,7 +112,7 @@ jQuery(document).ready( function () {
 			url: "../ajax/ADocumentos",
 			dataType:"text",
 			data:{
-				key: "editar_documento",
+				key_editar: "editar_documento",
 				id_edit: id_edit
 			},             
 			success:function(ndata){  

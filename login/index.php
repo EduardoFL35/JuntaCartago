@@ -36,12 +36,6 @@ if (isset($_SESSION["username"])) { //SI LA VARIABLE ESTÁ DEFINIDA
                         <input type="text" class="form-control" id="cedula" name="cedula" placeholder="1-1111-1111">
                     </div>
                     <div class="mb-2">
-                        <label style="display: block!important;" class="form-label">Contraseña
-                            <span style="float: right;">
-                                <a href="#">Olvidé mi Contraseña</a>
-                            </span>
-                        </label>
-
                         <div class="input-group input-group-flat">
                             <input type="password" name="password" id="password"class="form-control" placeholder="Tu Contraseña">
                             <span class="input-group-text">
@@ -51,12 +45,7 @@ if (isset($_SESSION["username"])) { //SI LA VARIABLE ESTÁ DEFINIDA
                             </span>
                         </div>
                     </div>
-                    <div class="mb-2">
-                        <label class="form-check">
-                            <input type="checkbox" class="form-check-input"/>
-                            <span class="">Recordarme</span>
-                        </label>
-                    </div>
+
                     <div class="form-footer">
                         <button type="submit" class="btn btn-dark w-100">Iniciar Sesión</button>
                     </div>
