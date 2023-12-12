@@ -165,5 +165,16 @@ if(isset($_POST['key_registro']) == "registro_doc"){
         $conn->close();
 
 
+}elseif (isset($_POST['key_eliminar_control']) == "eliminar_control") {
+    $id_control = $_POST['id_control'];
+    $eliminar = "UPDATE `control_documento` SET `estado`= 1 WHERE id = '$id_control';";
+      
+    if ($conn->query($eliminar) === TRUE) {
+        echo "1";//Succes
+        } else {
+        echo "a";//Error
+        }
+        
+    $conn->close();
 }
 ?>

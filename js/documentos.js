@@ -212,4 +212,40 @@ jQuery(document).ready( function () {
 		});
         return false;
     });
+
+    jQuery(".eliminar_control").click(function(){/*Acordarse que esto indica la clase a la que se le da click*/
+    var id_control = jQuery(this).attr("data-id");
+    jQuery.ajax({
+        type: "POST", 
+        url: "../ajax/ADocumentos",
+        dataType:"text",
+        data:{
+            key_eliminar_control: "eliminar_control",
+            id_control: id_control
+        },             
+        success:function(ndata){  
+            switch (ndata) {
+                case "1":
+                    jQuery(".btn_eliminar_control").next().html("<p>Se eliminó una tarea</p>")
+                    //Agregar <tr> del dato nuevo
+                    //Hacer un refrescar de la página
+                    location.reload();
+                    break;
+
+                case "a":
+                    jQuery(".btn_eliminar_control").next().html("<p>Error al eliminar datos</p>")
+                    break;    
+            
+                default:
+                    break;
+                }                     
+            },
+            error:function (xhr, ajaxOptions, thrownError){                 
+                alert(thrownError);
+            } 
+        });
+        return false;
+    });
+
+
 });

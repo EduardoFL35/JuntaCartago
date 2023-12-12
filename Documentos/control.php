@@ -5,6 +5,7 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
     $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
     header("location: http://$host/Proyecto/Git/JuntaCartago/login");// sino mandelo hacia acá
 }
+$query = $conn->query("select * from control_documento where estado = 1"); 
 
 if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
     echo "<p>No tiene permisos</p>";
@@ -139,18 +140,51 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
 									<th class="th-list">Tipo Documento</th>
 									<th class="th-list">Descripcion</th>
                                     <th class="th-list">Propietario</th>
+                                    <th class="th-list">Acción</th>
                                     <th class="th-list"></th>
                                 </tr>
                                 </thead>
 
+                                <?php
+
+                                if($query->num_rows > 0){
+                                while ($row = $query->fetch_assoc()){
+                                    $id = $row['id'];
+                                    $id_documento = $row['id_documento'];
+                                    $accion = $row['accion'];
+                                    $documentos = $conn->query("select * from documento where id = ".$id_documento."");
+                                    //var_dump($doctores); -> sirve para  mostrar un objeto
+                                    if ($documentos->num_rows > 0) {
+                                        while ($row2 = $documentos->fetch_assoc()){
+                                            $nombre = $row2['nombre'];
+                                            $fecha_ingreso = $row2['fecha_ingreso'];
+                                            $tipo_documento = $row2['tipo_documento'];
+                                            $descripcion = $row2['descripcion'];
+                                            $nombre_archivo = $row2['url'];
+                                        }
+                                    }
+                                    $documentos_tipo = $conn->query("SELECT td.nombre AS tipo_documento
+                                                                        FROM control_documento cd
+                                                                        JOIN documento doc ON cd.id_documento = doc.id
+                                                                        JOIN tipo_documento td ON doc.tipo_documento = td.id
+                                                                        WHERE cd.id_documento = '".$id_documento."';");
+                                    
+                                    if ($documentos_tipo->num_rows > 0) {
+                                        while ($row3 = $documentos_tipo->fetch_assoc()){
+                                            $tipo = $row3['tipo_documento'];
+                                        }
+                                    }
+
+                                    
+                                    ?>
                                 <tbody>
                                     <tr>
-										<td class="td-list">SF_JI780</td>
-										<td class="td-list">2023-11-01</td>
-										<td class="td-list">Oficio</td>
-										<td class="td-list">Documento</td>
+										<td class="td-list"><?php echo $nombre;?></td>
+										<td class="td-list"><?php echo $fecha_ingreso;?></td>
+										<td class="td-list"><?php echo $tipo;?></td>
+										<td class="td-list"><?php echo $descripcion;?></td>
                                         <th class="th-list">Juanito Pérez</th>
-
+                                        <th class="th-list"><?php echo $accion;?></th>
                                         <td class="td-list">
                                             <div class="btn-list flex-nowrap">
                                                 <div class="dropdown">
@@ -165,12 +199,12 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
                                                         <form action="#" method="POST">
                                                             <input type="hidden" name="_token" value="2atWpGYdcoqQKeHMiUHLvChu6BuXb1n6aW0VWbDa" autocomplete="off">
                                                             <input type="hidden" name="_method" value="DELETE">
-                                                            <button type="submit" onclick="if(!confirm('¿Seguro que quieres eliminarlo?')){return false;}" class="dropdown-item text-red">
+                                                            <button type="submit"  class=" eliminar_control dropdown-item text-red">
                                                                 <i class="bi bi-eraser"></i>    
                                                                 Eliminar
                                                             </button>
                                                         </form>
-                                                        <a class="dropdown-item" href="#">
+                                                        <a class="dropdown-item" href="http://localhost/Proyecto/Git/JuntaCartago/js/<?php echo $nombre_archivo; ?>">
                                                             <i class="bi bi-download"></i>
                                                             Descargar
                                                         </a>
@@ -179,6 +213,12 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
                                             </div>
                                         </td>
                                     </tr>
+                                <?php
+                                    }
+                                } else {
+                                    echo "No hay registros.<br>";
+                                }
+                                ?>
                             </tbody>
 
                             </table>

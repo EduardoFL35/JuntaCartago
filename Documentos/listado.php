@@ -148,13 +148,20 @@ $query = $conn->query("select * from documento where estado = 1");
                                     $tipo_documento = $row['tipo_documento'];
                                     $descripcion = $row['descripcion'];
                                     $nombre_archivo = $row['url'];
+                                    $documentos = $conn->query("select * from tipo_documento where Id = ".$tipo_documento."");
                                     
+                                    if ($documentos->num_rows > 0) {
+                                        while ($row2 = $documentos->fetch_assoc()){
+                                            $tipo = $row2['nombre'];
+                                        }
+                                    }
+
                                     ?>
                                     <tbody>
                                         <tr>
                                             <td class="td-list"><?php echo $nombre; ?></td>
                                             <td class="td-list"><?php echo $fecha_ingreso; ?></td>
-                                            <td class="td-list"><?php echo $tipo_documento; ?></td>
+                                            <td class="td-list"><?php echo $tipo; ?></td>
                                             <td class="td-list"><?php echo $descripcion; ?></td>
 
                                             <td class="td-list">
