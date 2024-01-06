@@ -51,6 +51,10 @@ jQuery(document).ready( function () {
                     case "1":
                         jQuery("#alerta_registro").addClass("alert alert-success")
                         jQuery("#alerta_registro").html("¡Se guardó un documento correctamente!")
+                        
+                        setTimeout(function () {
+                            location.reload();
+                        }, 4000);
                         break;
 
                     case "a":

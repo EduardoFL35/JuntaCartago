@@ -29,7 +29,9 @@ if (isset($_SESSION["username"])) { //SI LA VARIABLE ESTÁ DEFINIDA
     <div style="max-width: 30rem;" class="container py-4">
         <div class="card card-md mb-1 mt-5">
             <div class="card-body">
+            <img src="../img/logo.svg" width="200" height="200" alt="" style="display: block; margin-left: auto; margin-right: auto;">
                 <h2 class="h2 text-center mb-4">Bienvenido de Vuelta!</h2>
+
                 <form id="login_form">
                     <div class="mb-3">
                         <label class="form-label">Cédula</label>

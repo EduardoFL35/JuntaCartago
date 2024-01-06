@@ -31,7 +31,7 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
 </head>
 </head>
 <body class="bg-light">
-<nav class="border-bottom border-2 navbar navbar-expand-lg nav-fondo">
+    <nav class="border-bottom border-2 navbar navbar-expand-lg nav-fondo">
         <div class="container-fluid">
             <a href="../index.php">
                 <img src="../img/logo.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image">
@@ -53,36 +53,30 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
                             <i class="m-2 bi bi-search"></i>Búsqueda de Documentos
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="control.php">
-                            <i class="m-2 bi bi-folder-check"></i>Control de Archivos
-                        </a>
-                    </li>
+                    <?php if ($_SESSION["rol"] == 1) {
+                        ?><li class="nav-item">
+                                <a class="nav-link" href="control.php">
+                                    <i class="m-2 bi bi-folder-check"></i>Control de Archivos
+                                </a>
+                            </li>
+                    <?php
+                    } ?>
+                    <?php if ($_SESSION["rol"] == 1) {
+                        ?><li class="nav-item">
+                                <a class="nav-link" href="../Inventario/index.php">
+                                    <i class="m-2 bi bi-card-checklist"></i>Inventario
+                                </a>
+                            </li>
+                    <?php
+                    } ?>
+
                 </ul>
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a href="?theme=dark" class="nav-link px-0 hide-theme-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Enable dark mode" data-bs-original-title="Enable dark mode">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/moon -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="?theme=light" class="nav-link px-0 hide-theme-light" data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Enable light mode" data-bs-original-title="Enable light mode">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/sun -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <circle cx="12" cy="12" r="4"></circle>
-                                <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
-                            </svg>
-                        </a>
-                    </li>
+                    
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-bs-toggle="dropdown" aria-label="Open user menu" aria-expanded="false">
                             <div class="d-none d-xl-block ps-2">
-                                <div><?php  echo $_SESSION["nombre"]." ".$_SESSION["apellido"];?></div>
+                                <div><i class="m-2 bi bi-person-circle"></i><?php  echo $_SESSION["nombre"]." ".$_SESSION["apellido"];?></div>
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">                    
