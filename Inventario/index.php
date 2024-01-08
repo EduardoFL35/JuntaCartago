@@ -27,7 +27,7 @@ $query = $conn->query("select * from documento order by fecha_ingreso desc limit
     <!--Fuente-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Georgia+Pro&family=Roboto:wght@400&display=swap">
 </head>
-<body>
+<body data-bs-theme="light">
   <nav class="border-bottom border-2 navbar navbar-expand-lg nav-fondo">
     <div class="container-fluid">
       <a href="../index.php">

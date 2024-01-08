@@ -90,7 +90,7 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                     <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2 active" href="index.php">
+                                <a class="nav-link d-flex align-items-center gap-2 active" href="../index.php">
                                     <i class="bi bi-house-fill"></i>
                                     Panel de Control
                                 </a>
@@ -101,14 +101,14 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                                 </a>
                                 <div class="collapse" id="dashboard-collapse">
                                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                        <li><a href="index.php" class="items">Control de activos</a></li>
-                                        <li><a href="listado.php" class="items">Listado de activos</a></li>
-                                        <li><a href="registro.php" class="items">Agregar activo</a></li>
+                                        <li><a href="../Activos/index.php" class="items">Control de activos</a></li>
+                                        <li><a href="../Activos/listado.php" class="items">Listado de activos</a></li>
+                                        <li><a href="../Activos/registro.php" class="items">Agregar activo</a></li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="./Garantia/index.php">
+                                <a class="nav-link d-flex align-items-center gap-2" href="../Garantia/index.php">
                                     <i class="bi bi-hourglass-split"></i>
                                     Garantía
                                 </a>

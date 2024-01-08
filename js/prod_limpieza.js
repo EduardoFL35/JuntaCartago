@@ -89,5 +89,52 @@ jQuery(document).ready( function () {
 		});
         return false;
 	});
+    jQuery("#nota_limpieza_form").submit(function(){/*Acordarse que el # indica el id a la que se le da click*/
+        var id_producto = jQuery(this).attr("data-id");
+        var message_limpieza = jQuery("#message_limpieza").val();
+        jQuery("#message_limpieza").css("border", "");
+        
+        if (message_limpieza == "") {
+            jQuery("#message_limpieza").css("border", "2px solid red");
+            return false;
+        }
+        
+        
+		jQuery.ajax({
+			type: "POST", 
+			url: "../../ajax/AProd_Limpieza",
+			dataType:"text",
+			data:{
+				key_nota_producto: "key_nota_producto",
+                message_limpieza : message_limpieza,
+                id_producto : id_producto
+			},             
+			success:function(ndata){  
+                console.log(ndata);
+				switch (ndata) {
+                    case "1":
+                        jQuery("#alerta_nota").addClass("alert alert-success")
+                        jQuery("#alerta_nota").html("¡Se guardó un producto correctamente!")
+                        
+                        setTimeout(function () {
+                            location.reload();
+                        }, 4000);
+                        break;
+
+                    case "a":
+                        jQuery("#alerta_nota").addClass("alert alert-danger")
+                        jQuery("#alerta_nota").html("¡Error al ingresar datos!")
+                        break;    
+                
+                    default:
+                        break;
+                }                     
+			},
+			error:function (xhr, ajaxOptions, thrownError){                 
+				alert(thrownError);
+			} 
+		});
+        return false;
+	});
 
 });

@@ -92,7 +92,7 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
                     <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2 active" href="index.php">
+                                <a class="nav-link d-flex align-items-center gap-2 active" href="../index.php">
                                     <i class="bi bi-house-fill"></i>
                                     Panel de Control
                                 </a>
@@ -110,16 +110,22 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="./Garantia/index.php">
+                                <a class="nav-link d-flex align-items-center gap-2" href="../Garantia/index.php">
                                     <i class="bi bi-hourglass-split"></i>
                                     Garantía
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="./Productos_Limpieza/index.php">
-                                    <i class="bi bi-wrench"></i>
-                                    Productos de Limpieza
+                                <a class="nav-link d-flex align-items-center gap-2" href="#" data-bs-toggle="collapse" data-bs-target="#Limpieza" aria-expanded="true">
+                                    <i class="bi bi-wrench"></i>Productos de Limpieza
                                 </a>
+                                <div class="collapse" id="Limpieza">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                        <li><a href="../Productos_Limpieza/index.php" class="items">Control de productos de limpieza</a></li>
+                                        <li><a href="../Productos_Limpieza/listado.php" class="items">Listado de productos de limpieza</a></li>
+                                        <li><a href="../Productos_Limpieza/registro.php" class="items">Agregar producto</a></li>
+                                    </ul>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -186,13 +192,13 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
                                 <br> 
                                 <div class="form-group row">
                                     <div class="col-sm-6">
-                                        <label for="factura" class="form-label">Cargar Factura</label>
-                                        <input type="file" name="factura" class="form-control form-control-file" id="factura">
+                                        <label for="factura_activo" class="form-label">Cargar Factura</label>
+                                        <input type="file" name="factura_activo" class="form-control form-control-file" id="factura_activo">
                                         <input type="hidden" id="nombre_factura">
                                     </div>
                                     <div class="col-sm-6">
-                                        <label for="imagen" class="form-label">Cargar Imagen</label>
-                                        <input type="file" name="imagen" class="form-control form-control-file" id="imagen">
+                                        <label for="imagen_activo" class="form-label">Cargar Imagen</label>
+                                        <input type="file" name="imagen_activo" class="form-control form-control-file" id="imagen_activo">
                                         <input type="hidden" id="nombre_imagen">
                                     </div>
                                 </div>

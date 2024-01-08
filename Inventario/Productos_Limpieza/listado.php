@@ -18,6 +18,7 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
     <link rel="stylesheet" href="../../css/inventario.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../../js/script.js"></script>
+    <script src="../../js/prod_limpieza.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -90,7 +91,7 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                     <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2 active" href="index.php">
+                                <a class="nav-link d-flex align-items-center gap-2 active" href="../index.php">
                                     <i class="bi bi-house-fill"></i>
                                     Panel de Control
                                 </a>
@@ -101,24 +102,31 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                                 </a>
                                 <div class="collapse" id="dashboard-collapse">
                                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                        <li><a href="index.php" class="items">Control de activos</a></li>
-                                        <li><a href="listado.php" class="items">Listado de activos</a></li>
-                                        <li><a href="registro.php" class="items">Agregar activo</a></li>
+                                        <li><a href="../Activos/index.php" class="items">Control de activos</a></li>
+                                        <li><a href="../Activos/listado.php" class="items">Listado de activos</a></li>
+                                        <li><a href="../Activos/registro.php" class="items">Agregar activo</a></li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="./Garantia/index.php">
+                                <a class="nav-link d-flex align-items-center gap-2" href="../Garantia/index.php">
                                     <i class="bi bi-hourglass-split"></i>
                                     Garantía
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="./Productos_Limpieza/index.php">
-                                    <i class="bi bi-wrench"></i>
-                                    Productos de Limpieza
+                                <a class="nav-link d-flex align-items-center gap-2" href="#" data-bs-toggle="collapse" data-bs-target="#Limpieza" aria-expanded="true">
+                                    <i class="bi bi-wrench"></i>Productos de Limpieza
                                 </a>
+                                <div class="collapse" id="Limpieza">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                        <li><a href="index.php" class="items">Control de productos de limpieza</a></li>
+                                        <li><a href="listado.php" class="items">Listado de productos de limpieza</a></li>
+                                        <li><a href="registro.php" class="items">Agregar producto</a></li>
+                                    </ul>
+                                </div>
                             </li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -152,7 +160,7 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                                 <div class="col-md-6 col-lg-4 mb-4">
                                     <div class="listing d-block  align-items-stretch">
                                         <div class="listing-img h-100 mr-4">
-                                            <img src="../../img/activo_Computadora_Oficina.jpg" alt="Image" class="img-fluid">
+                                            <img src="../../img/producto_pastilla.webp" alt="Image" class="img-fluid">
                                         </div>
                                         <div class="listing-contents h-100">
                                             <h3><?php echo $Nombre; ?></h3>
@@ -186,7 +194,11 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                                                     
                                                 </div>
                                                 <div class="listing-feature pr-4 m-1">
-                                                    <button id="agregar_nota" href=""><i class="m-1 bi bi-card-checklist"></i>Añadir Nota</button>
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button"  
+                                                        data-bs-toggle="modal" data-bs-target="#modal_nota_limpieza_<?php echo $id; ?>" id="btn_agregar_nota_lmpieza" data-id="<?php echo $id;?>">
+                                                        <i class="m-1 bi bi-card-checklist"></i>Añadir Nota
+                                                    </button>
                                                 </div>
                                             </div>
                                             <div>
@@ -194,6 +206,32 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                                                 <a href="#" style="color: #ffffff; background-color: #001F3F;" class="btn ms-auto">Editar</a>
                                             </div>
                                         </div>     
+                                    </div>
+                                </div>
+                                <!-- Modal Nota-->
+                                <div class="modal fade" id="modal_nota_limpieza_<?php echo $id; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Nota</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div id="alerta_nota">
+                                            </div>
+                                            
+                                            <form class="form_limpieza" id="nota_limpieza_form" data-id="<?php echo $id;?>">
+                                                <div class="modal-body">
+                                                    
+                                                    <label for="Nombre">Mensaje</label>
+                                                        <textarea class="form-control" name="message_limpieza" id="message_limpieza" rows="3" placeholder="Ingrese su mensaje"></textarea>
+                                                    <br>
+                                                    
+                                                    <div class="modal-footer">
+                                                        <input type="submit" name="action" id="action" class="btn btn-success" value="Guardar" >
+                                                    </div>
+                                                </div>    
+                                            </form>    
+                                        </div>
                                     </div>
                                 </div>
                                 <?php
@@ -209,6 +247,8 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
         </div>
     </div>            
 
+
+    
     
 
 

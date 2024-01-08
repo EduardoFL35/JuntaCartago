@@ -87,6 +87,23 @@ if(isset($_POST['key_registro_producto']) == "key_registro_producto"){
         }else{
             echo "a";
         }
+}elseif(isset($_POST['key_nota_producto']) == "key_nota_producto"){
+    $id_producto = $_POST['id_producto'];
+    $message_limpieza = $_POST['message_limpieza'];
+    
+
+    $insert = "UPDATE `producto_limpieza` SET `nota`='".$message_limpieza."' WHERE id = '".$id_producto."';";
+
+    if ($conn->query($insert) === TRUE) {
+        echo "1";//Succes
+      } else {
+        echo "a";//Error
+      }
+      
+      $conn->close();
+                        
+	
+//Subir archivo      
 }
 
 

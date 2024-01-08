@@ -19,6 +19,7 @@ if (isset($_SESSION["username"])) { //SI LA VARIABLE ESTÁ DEFINIDA
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="../js/passw.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <!--Fuente-->
@@ -41,7 +42,7 @@ if (isset($_SESSION["username"])) { //SI LA VARIABLE ESTÁ DEFINIDA
                         <div class="input-group input-group-flat">
                             <input type="password" name="password" id="password"class="form-control" placeholder="Tu Contraseña">
                             <span class="input-group-text">
-                                <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
+                                <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip">
                                     <i class="bi bi-eye"></i>
                                 </a>
                             </span>

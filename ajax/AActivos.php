@@ -50,16 +50,16 @@ if(isset($_POST['key_registro_activo']) == "registro_activo"){
     $conn->close();
 	
 //Subir archivo      
-}elseif(isset($_FILES["factura"])){
-    $file = $_FILES["factura"];
+}elseif(isset($_FILES["factura_activo"])){
+    $file = $_FILES["factura_activo"];
     $nombre_formato = $file["name"];
     $nombre = str_replace(" ", "", $nombre_formato);
     $tipo = $file["type"];
     $ruta_provisional = $file["tmp_name"];//donde está ahorita el archivo en el sv
     $size = $file["size"];
     $carpeta_destino = "D:/wamp64/www/Proyecto/Git/JuntaCartago/js/archivos/";//Servidor local
-    $fecha = date("Y-m-d H:i:s");
-    $hoy = date("Y-m-d");
+    $fecha = date("d-m-Y H:i:s");
+    $hoy = date("d-m-Y");
     $key_fecha = strtotime($fecha);//cambia la fecha por una cadena 
 
     if (!file_exists($carpeta_destino)) {
@@ -112,6 +112,21 @@ if(isset($_POST['key_registro_activo']) == "registro_activo"){
         }else{
             echo "a";
         }
+}elseif(isset($_POST['key_nota_activo']) == "key_nota_activo"){
+    $id_activo = $_POST['id_activo'];
+    $message_activo = $_POST['message_activo'];
+    
+
+    $insert = "UPDATE `activo` SET `nota`='".$message_activo."' WHERE id = '".$id_activo."';";
+
+    if ($conn->query($insert) === TRUE) {
+        echo "1";//Succes
+      } else {
+        echo "a";//Error
+      }
+      
+      $conn->close();
+                      
 }
 
 

@@ -14,8 +14,8 @@ jQuery(document).ready( function () {
         var fecha_final_activo = jQuery("#fecha_final_activo").val();
         var estado_activo = jQuery("#estado_activo").val();
         var nota_activo = jQuery("#nota_activo").val();
-        var nombre_imagen = jQuery("#imagen").val();
-        var nombre_factura = jQuery("#factura").val();
+        var nombre_imagen = jQuery("#nombre_imagen").val();
+        var nombre_factura = jQuery("#nombre_factura").val();
         jQuery("#codigo_activo").css("border", "");
         jQuery("#nombre_activo").css("border", "");
         jQuery("#desc_activo").css("border", "");
@@ -69,11 +69,11 @@ jQuery(document).ready( function () {
             return false;
         }
 
-        if (nombre_imagen == "") {
+        if (nombre_imagen === "") {
             alert("Falta subir la imagen");
             return false;
         }
-        if (nombre_factura == "") {
+        if (nombre_factura === "") {
             alert("Falta subir la factura");
             return false;
         }
@@ -125,5 +125,164 @@ jQuery(document).ready( function () {
 		});
         return false;
 	});
+
+    
+
+    jQuery(".nota_activo_form").submit(function(){/*Acordarse que el # indica el id a la que se le da click*/
+           
+        var id_activo = jQuery(this).attr("data-id");
+        var message_activo = jQuery("#message_activo_" + id_activo).val();
+        jQuery("#message_activo_" + id_activo).css("border", "");
+        
+        if (message_activo == "") {
+            jQuery("#message_activo_" + id_activo).css("border", "2px solid red");
+            return false;
+        }
+        
+        
+		jQuery.ajax({
+			type: "POST", 
+			url: "../../ajax/AActivos",
+			dataType:"text",
+			data:{
+				key_nota_activo: "key_nota_activo",
+                id_activo : id_activo,
+                message_activo : message_activo
+			},             
+			success:function(ndata){  
+                console.log(ndata);
+				switch (ndata) {
+                    case "1":
+                        jQuery("#alerta_nota_" + id_activo).addClass("mx-2 my-1 alert alert-success")
+                        jQuery("#alerta_nota_" + id_activo).html("¡Se guardó un activo correctamente!")
+                        
+                        setTimeout(function () {
+                            location.reload();
+                        }, 4000);
+                        break;
+
+                    case "a":
+                        jQuery("#alerta_nota_"+ id_activo).addClass("alert alert-danger")
+                        jQuery("#alerta_nota_"+ id_activo).html("¡Error al ingresar datos!")
+                        break;    
+                
+                    default:
+                        break;
+                }                     
+			},
+			error:function (xhr, ajaxOptions, thrownError){                 
+				alert(thrownError);
+			} 
+		});
+        return false;
+	});
+
+    //Guardar Factura
+    jQuery("input[name='factura_activo']").on("change", function(){
+        jQuery("#msg_error").html("");
+        jQuery("#msg_error").hide();
+        //queremos que esta variable sea global
+        var fileExtension = "";
+        //obtenemos un array con los datos del archivo
+        var file = jQuery("#factura_activo")[0].files[0];
+        //obtenemos el nombre del archivo
+        var fileName = file.name;
+        //obtenemos la extensión del archivo
+        fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+        //obtenemos el tamaño del archivo
+        var fileSize = file.size;
+        //obtenemos el tipo de archivo image/png ejemplo
+        var fileType = file.type;
+
+        var formData = new FormData();
+        formData.append("factura_activo",file);
+        var message = "";
+
+        jQuery.ajax({
+            url: "../../ajax/AActivos",
+            type: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data:formData,
+            beforeSend: function(){
+                // mensaje cuando se esta cargando imagen para enviar.
+                jQuery("#msg_error").show();
+                jQuery("#msg_error").html("<span class='before'>Subiendo la factura, por favor espere...</span>");
+                console.log('Cargando factura');
+            },
+            // una vez finalizado correctamente
+            success: function(data){
+                switch(data){
+                    case "a":
+                        console.log("Error al cargar la factura");
+                        break;
+                    default:
+                        jQuery("#nombre_factura").val(data);
+                        console.log("cargó la factura" + data);
+                        break;
+                }
+            },
+            // si ha ocurrido un error
+            error: function(){
+                message = jQuery("<span class='error'>Ha ocurrido un error.</span>");
+                console.log("Error");
+            }
+        });
+    });
+
+    //Guardar Imagen
+    jQuery("input[name='imagen_activo']").on("change", function(){
+        jQuery("#msg_error").html("");
+        jQuery("#msg_error").hide();
+        //queremos que esta variable sea global
+        var fileExtension = "";
+        //obtenemos un array con los datos del archivo
+        var file = jQuery("#imagen_activo")[0].files[0];
+        //obtenemos el nombre del archivo
+        var fileName = file.name;
+        //obtenemos la extensión del archivo
+        fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+        //obtenemos el tamaño del archivo
+        var fileSize = file.size;
+        //obtenemos el tipo de archivo image/png ejemplo
+        var fileType = file.type;
+
+        var formData = new FormData();
+        formData.append("imagen_activo",file);
+        var message = "";
+
+        jQuery.ajax({
+            url: "../../ajax/AActivos",
+            type: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data:formData,
+            beforeSend: function(){
+                // mensaje cuando se esta cargando imagen para enviar.
+                jQuery("#msg_error").show();
+                jQuery("#msg_error").html("<span class='before'>Subiendo la imagen, por favor espere...</span>");
+                console.log('Cargando imagen');
+            },
+            // una vez finalizado correctamente
+            success: function(data){
+                switch(data){
+                    case "a":
+                        console.log("Error al cargar imagen");
+                        break;
+                    default:
+                        jQuery("#nombre_imagen").val(data);
+                        console.log("cargó la imagen" + data);
+                        break;
+                }
+            },
+            // si ha ocurrido un error
+            error: function(){
+                message = jQuery("<span class='error'>Ha ocurrido un error.</span>");
+                console.log("Error");
+            }
+        });
+    });
 
 });
