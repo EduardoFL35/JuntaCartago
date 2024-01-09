@@ -149,9 +149,9 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
                             <form id="activo_form">
                                 <div class="form-group row">
                                     <div class="col-sm-6">
-                                        <label class="form-label">Codigo</label>
+                                        <label class="form-label">Código</label>
                                         <div>
-                                            <input type="text" class="form-control" placeholder="Nombre" id="codigo_activo" name="codigo_activo">
+                                            <input type="text" class="form-control" placeholder="Código" id="codigo_activo" name="codigo_activo">
                                         </div>
                                     </div>
                                 

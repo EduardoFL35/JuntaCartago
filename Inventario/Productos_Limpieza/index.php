@@ -19,6 +19,7 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
     <link rel="stylesheet" href="../../css/inventario.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../../js/script.js"></script>
+    <script src="../../js/prod_limpieza.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -132,6 +133,8 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
             </div>
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div id="alerta_eliminar">
+                </div>
                 <div class="row pt-3 pb-2 mb-3 g-2 align-items-center border-bottom">
                     <div class="col">
                         <!-- Page pre-title -->
@@ -220,10 +223,6 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                                                                     <a data-id="<?php echo $id;?>" class=" eliminar dropdown-item text-red">
                                                                         <i class="bi bi-eraser"></i>    
                                                                         Eliminar
-                                                                    </a>
-                                                                    <a id="btn_descargar_doc" class="dropdown-item" href="#">
-                                                                        <i class="bi bi-download"></i>
-                                                                        Descargar
                                                                     </a>
                                                                 </div>
                                                             </div>

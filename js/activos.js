@@ -248,8 +248,9 @@ jQuery(document).ready( function () {
         //obtenemos el tipo de archivo image/png ejemplo
         var fileType = file.type;
 
+        alert(fileName);
         var formData = new FormData();
-        formData.append("imagen_activo",file);
+        formData.append("imagen_activo_p",file);//
         var message = "";
 
         jQuery.ajax({
@@ -267,6 +268,7 @@ jQuery(document).ready( function () {
             },
             // una vez finalizado correctamente
             success: function(data){
+                alert(data);
                 switch(data){
                     case "a":
                         console.log("Error al cargar imagen");
@@ -283,6 +285,46 @@ jQuery(document).ready( function () {
                 console.log("Error");
             }
         });
+    });
+
+    //Elimminar Activos
+    jQuery(".eliminar").click(function(){/*Acordarse que esto indica la clase a la que se le da click*/
+    var id_activo = jQuery(this).attr("data-id");
+    jQuery.ajax({
+        type: "POST", 
+        url: "../../ajax/AActivos",
+        dataType:"text",
+        data:{
+            key_eliminar_activo: "eliminar_activo",
+            id_activo: id_activo
+        },             
+        success:function(ndata){  
+            switch (ndata) {
+                case "1":
+                    jQuery("#alerta_eliminar").addClass("mx-2 my-1 alert alert-success")
+                    jQuery("#alerta_eliminar").html("¡Se eliminó un activo correctamente!")
+                    var alertaEliminarElement = document.getElementById("alerta_eliminar");
+                    alertaEliminarElement.scrollIntoView({ behavior: "smooth" });
+                    
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
+                    break;
+
+                case "a":
+                    jQuery("#alerta_eliminar").addClass("alert alert-danger")
+                    jQuery("#alerta_eliminar").html("¡Error al ingresar datos!")
+                    break;     
+            
+                default:
+                    break;
+                }                     
+            },
+            error:function (xhr, ajaxOptions, thrownError){                 
+                alert(thrownError);
+            } 
+        });
+        return false;
     });
 
 });

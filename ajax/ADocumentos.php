@@ -70,6 +70,7 @@ if(isset($_POST['key_registro']) == "registro_doc"){
         }
         
     $conn->close();
+
 //Editar documento    
 }elseif (isset($_POST['key_editar']) == "editar_documento") {
 
@@ -85,85 +86,106 @@ if(isset($_POST['key_registro']) == "registro_doc"){
             $tipo_documento = $row['tipo_documento'];
             $descripcion = $row['descripcion'];
             $nombre_archivo = $row['url'];
+            $nombre_archivo_m = str_replace("archivos/", "", $nombre_archivo);
         }
     }
     ?>
-    <form id="documento_form">
-        <input type="hidden" value="<?php echo $id_edit; ?>">
-                    <div class="form-group row">
-                        <div class="col-sm-6">
-                            <label class="form-label">Nombre</label>
-                            <div>
-                                <input type="text" class="form-control" placeholder="Nombre" id="nombre_doc" name="nombre_doc" value="<?php echo $nombre; ?>">
-                            </div>
-                        </div>
+        <form id="documento_form_editar">
+            <input type="hidden" id="id_activo_editar" value="<?php echo $id_edit?>">
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label class="form-label">Nombre</label>
+                    <div>
+                        <input type="text" class="form-control" placeholder="Nombre" id="nombre_doc_editar" name="nombre_doc" value="<?php echo $nombre; ?>">
+                    </div>
+                </div>
+            
+                <div class="col-sm-6">
+                    <label class="form-label">Fecha de Ingreso</label>
+                    <div>
+                        <input type="date" name="fecha_doc" id="fecha_doc_editar" class="form-control" placeholder="Fecha de Ingreso" value="<?php echo $fecha_ingreso; ?>">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label class="form-label">Tipo de Documento</label>
+                    <div>
+                        <select name="tipo_doc" id="tipo_doc_editar" class="form-control" placeholder="Tipo de Documento" >
+                            <?php 
+                                if ($tipo_documento == 1) {
+                                    echo '<option value="1" selected>Acta</option>';
+                                }else{
+                                    echo '<option value="1" >Acta</option>';
+                                }
+                                if ($tipo_documento == 2) {
+                                    echo '<option value="2" selected>Contrato</option>';
+                                }else{
+                                    echo '<option value="2" >Contrato</option>';
+                                }
+                                if ($tipo_documento == 3) {
+                                    echo '<option value="3" selected>Adjudicación</option>';
+                                }else{
+                                    echo '<option value="3" >Adjudicación</option>';
+                                }
+                                if ($tipo_documento == 4) {
+                                    echo '<option value="4" selected>Oficio</option>';
+                                }else{
+                                    echo '<option value="4" >Oficio</option>';
+                                }
+                                if ($tipo_documento == 5) {
+                                    echo '<option value="5" selected>Expediente</option>';
+                                }else{
+                                    echo '<option value="5" >Expediente</option>';
+                                }
+                                if ($tipo_documento == 6) {
+                                    echo '<option value="6" selected>Orden de Compra</option>';
+                                }else{
+                                    echo '<option value="6" >Orden de Compra</option>';
+                                }
+                                if ($tipo_documento == 7) {
+                                    echo '<option value="7" selected>Planilla</option>';
+                                }else{
+                                    echo '<option value="7" >Planilla</option>';
+                                }
+                                if ($tipo_documento == 8) {
+                                    echo '<option value="8" selected>Cheque</option>';
+                                }else{
+                                    echo '<option value="8" >Cheque</option>';
+                                }
+                            ?>
+                        </select>
+                        
+                    </div>
+                </div>
                     
-                        <div class="col-sm-6">
-                            <label class="form-label">Fecha de Ingreso</label>
-                            <div>
-                                <input type="date" name="fecha_doc" id="fecha_doc" class="form-control" placeholder="Fecha de Ingreso" value="<?php echo $fecha_ingreso; ?>">
-                            </div>
-                        </div>
+                <div class="col-sm-6">
+                    <label class="form-label">Descripción</label>
+                    <div>
+                        <textarea class="form-control" name="desc_doc" id="desc_doc_editar" rows="2" placeholder="Descripción"><?php echo $descripcion; ?>"</textarea>
                     </div>
-                    <br>
-                    <div class="form-group row">
-                        <div class="col-sm-6">
-                            <label class="form-label">Tipo de Documento</label>
-                            <div>
-                                <select name="tipo_doc" id="tipo_doc" class="form-control" placeholder="Tipo de Documento">
-                                    <option value="1">Acta</option>
-                                    <option value="2">Contrato</option>
-                                    <option value="3">Adjudicación</option>
-                                    <option value="4">Oficio</option>
-                                    <option value="5">Expediente</option>
-                                    <option value="6">Orden de Compra</option>
-                                    <option value="7">Planilla</option>
-                                    <option value="8">Cheque</option>
-                                </select>
-                            </div>
-                        </div>
-                            
-                        <div class="col-sm-6">
-                            <label class="form-label">Descripción</label>
-                            <div>
-                                <textarea class="form-control" name="desc_doc" id="desc_doc" rows="2" placeholder="Descripción" value="<?php echo $fecha_ingreso; ?>"></textarea>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="archivo" class="form-label">Cargar Documento</label>
+                    <input type="file" name="archivo" class="form-control form-control-file" id="archivo">
+                    <input type="hidden" id="nombre_archivo_editar" value="<?php echo $nombre_archivo_m; ?>">
+                    <div id="mostrar_archivo"><a href="http://localhost/Proyecto/Git/JuntaCartago/js/archivos/<?php echo $nombre_archivo_m; ?>">Documento</a></div>
+                </div>
+            </div>
+            <br>
+            <div class="form-footer">
+                <div class="text-end">
+                    <div class="d-flex">
+                        <a href="#" class="btn btn-danger">Cancelar</a>
+                        <button id="action" type="submit" style="color: #ffffff; background-color: #001F3F;" class="btn ms-auto">Guardar</button>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-sm-6">
-                            <label for="archivo" class="form-label">Cargar Documento</label>
-                        <input type="file" name="archivo" class="form-control form-control-file" id="archivo">
-                        <input type="hidden" id="nombre_archivo">
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-footer">
-                        <div class="text-end">
-                            <div class="d-flex">
-                                <a href="#" class="btn btn-danger">Cancelar</a>
-                                <button id="action" type="submit" style="color: #ffffff; background-color: #001F3F;" class="btn ms-auto">Guardar</button>
-                            </div>
-                        </div>
-                    </div>           
-                </form> 
+                </div>
+            </div>           
+        </form> 
     <?php
-
-        $edit = "UPDATE appointment SET Appointment_Time = '".$apointment_time."', 
-                                        Schedules = '".$schedule_list."',
-                                        Patient_Id = ".$cedula.",
-                                        Doctor_Id = ".$doctor_list.",
-                                        Speciality_Id = ".$speciality_list.", 
-                                        Message = '".$message."' WHERE Id = $id_edit";
-
-        if ($conn->query($edit) === TRUE) {
-            echo "1";//Succes
-        } else {
-            echo "a";//Error
-        }
-        
-        $conn->close();
-
 
 }elseif (isset($_POST['key_eliminar_control']) == "eliminar_control") {
     $id_control = $_POST['id_control'];
@@ -176,5 +198,37 @@ if(isset($_POST['key_registro']) == "registro_doc"){
         }
         
     $conn->close();
+}elseif(isset($_POST['key_editar_registro']) == "editar_registro_doc"){
+    $id_activo_editar = $_POST['id_activo_editar'];
+    $nombre_doc = $_POST['nombre_doc_editar'];
+    $fecha_doc = $_POST['fecha_doc_editar']; 
+    $tipo_doc = $_POST['tipo_doc_editar'];
+    $desc_doc = $_POST['desc_doc_editar'];
+    $nombre_archivo = "archivos/".$_POST['nombre_archivo_editar'];
+    $id_usuario = $_SESSION["id_user"];
+
+
+    $editar_doc = "UPDATE `documento` SET `nombre`='".$nombre_doc."',
+                                          `fecha_ingreso`='".$fecha_doc."',
+                                          `tipo_documento`=".$tipo_doc.",
+                                          `descripcion`='".$desc_doc."',
+                                          `url`='".$nombre_archivo."',
+                                          `id_usuario`=".$id_usuario."
+                                           WHERE id = '".$id_activo_editar."'";
+      
+    if ($conn->query($editar_doc) === TRUE) {
+        echo "1";//Succes
+        } else {
+        echo "a";//Error
+        }
+        
+    $conn->close();
+
+
+
+}else{
+    //Output error
+    header('HTTP/1.1 500 Error, intenta de nuevo!');
+    //exit();
 }
 ?>

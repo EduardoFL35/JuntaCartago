@@ -137,8 +137,8 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
                     <div class="form-group row">
                         <div class="col-sm-6">
                             <label for="archivo" class="form-label">Cargar Documento</label>
-                        <input type="file" name="archivo" class="form-control form-control-file" id="archivo">
-                        <input type="hidden" id="nombre_archivo">
+                            <input type="file" name="archivo" class="form-control form-control-file" id="archivo">
+                            <input type="hidden" id="nombre_archivo">
                         </div>
                     </div>
                     <br>

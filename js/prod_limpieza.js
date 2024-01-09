@@ -89,6 +89,8 @@ jQuery(document).ready( function () {
 		});
         return false;
 	});
+
+    //Agregar una nota
     jQuery("#nota_limpieza_form").submit(function(){/*Acordarse que el # indica el id a la que se le da click*/
         var id_producto = jQuery(this).attr("data-id");
         var message_limpieza = jQuery("#message_limpieza").val();
@@ -136,5 +138,45 @@ jQuery(document).ready( function () {
 		});
         return false;
 	});
+
+    //Elimminar producto
+    jQuery(".eliminar").click(function(){/*Acordarse que esto indica la clase a la que se le da click*/
+    var id_producto = jQuery(this).attr("data-id");
+    jQuery.ajax({
+        type: "POST", 
+        url: "../../ajax/AProd_Limpieza",
+        dataType:"text",
+        data:{
+            key_eliminar_producto: "eliminar_producto",
+            id_producto: id_producto
+        },             
+        success:function(ndata){  
+            switch (ndata) {
+                case "1":
+                    jQuery("#alerta_eliminar").addClass("mx-2 my-1 alert alert-success")
+                    jQuery("#alerta_eliminar").html("¡Se eliminó un producto correctamente!")
+                    var alertaEliminarElement = document.getElementById("alerta_eliminar");
+                    alertaEliminarElement.scrollIntoView({ behavior: "smooth" });
+                    
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
+                    break;
+
+                case "a":
+                    jQuery("#alerta_eliminar").addClass("alert alert-danger")
+                    jQuery("#alerta_eliminar").html("¡Error al ingresar datos!")
+                    break;     
+            
+                default:
+                    break;
+                }                     
+            },
+            error:function (xhr, ajaxOptions, thrownError){                 
+                alert(thrownError);
+            } 
+        });
+        return false;
+    });
 
 });

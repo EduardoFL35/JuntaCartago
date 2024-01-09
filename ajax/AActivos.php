@@ -2,6 +2,7 @@
 session_start();
 include "../config.php";
 
+
 //Insertar Activo
 if(isset($_POST['key_registro_activo']) == "registro_activo"){
     $codigo_activo = $_POST['codigo_activo'];
@@ -81,14 +82,14 @@ if(isset($_POST['key_registro_activo']) == "registro_activo"){
         }else{
             echo "a";
         }
-}elseif(isset($_FILES["imagen"])){
-    $file_img = $_FILES["imagen"];
+}elseif(isset($_FILES["imagen_activo_p"])){
+    $file_img = $_FILES["imagen_activo_p"];
     $nombre_formato_img = $file_img["name"];
     $nombre_img = str_replace(" ", "", $nombre_formato_img);
     $tipo_img = $file_img["type"];
     $ruta_provisional_img = $file_img["tmp_name"];//donde está ahorita el archivo en el sv
-    $size_img = $file["size"];
-    $carpeta_destino_img = "D:/wamp64/www/Proyecto/Git/JuntaCartago/img";//Servidor local
+    $size_img = $file_img["size"];
+    $carpeta_destino_img = "D:/wamp64/www/Proyecto/Git/JuntaCartago/img/";//Servidor local
     $fecha_img = date("Y-m-d H:i:s");
     $hoy_img = date("Y-m-d");
     $key_fecha_img = strtotime($fecha_img);//cambia la fecha por una cadena 
@@ -126,7 +127,20 @@ if(isset($_POST['key_registro_activo']) == "registro_activo"){
       }
       
       $conn->close();
-                      
+    
+//Cambiar estado de eliminar                  
+}elseif (isset($_POST['key_eliminar_activo']) == "eliminar_activo") {
+    $id_activo = $_POST['id_activo'];
+    $eliminar = "UPDATE `activo` SET `status`= 0 WHERE id = '$id_activo';";
+      
+    if ($conn->query($eliminar) === TRUE) {
+        echo "1";//Succes
+        } else {
+        echo "a";//Error
+        }
+        
+    $conn->close();
+  
 }
 
 

@@ -19,7 +19,6 @@ $query = $conn->query("select * from garantia where estado = 1");
     <link rel="stylesheet" href="../../css/inventario.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../../js/script.js"></script>
-    <script src="../../js/garantia.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -111,7 +110,7 @@ $query = $conn->query("select * from garantia where estado = 1");
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="./Garantia/index.php">
+                                <a class="nav-link d-flex align-items-center gap-2" href="index.php">
                                     <i class="bi bi-hourglass-split"></i>
                                     Garantía
                                 </a>

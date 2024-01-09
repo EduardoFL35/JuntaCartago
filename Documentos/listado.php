@@ -165,7 +165,7 @@ $query = $conn->query("select * from documento where estado = 1");
                                                         Opciones
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                        <a id="btn_editar_doc" class="dropdown-item" data-bs-toggle="modal" data_id="<?php echo $id;?>" data-bs-target="#modalEditar">
+                                                        <a id="btn_editar_doc" class="editar-btn dropdown-item" data-bs-toggle="modal" data_id="<?php echo $id;?>" data-bs-target="#modalEditar">
                                                             <i class="bi bi-pencil-square"></i>
                                                            Editar
                                                         </a>

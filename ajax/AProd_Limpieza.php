@@ -103,7 +103,19 @@ if(isset($_POST['key_registro_producto']) == "key_registro_producto"){
       $conn->close();
                         
 	
-//Subir archivo      
+//Cambiar estado de eliminar                  
+}elseif (isset($_POST['key_eliminar_producto']) == "eliminar_producto") {
+    $id_producto = $_POST['id_producto'];
+    $eliminar = "UPDATE `producto_limpieza` SET `status`= 0 WHERE id = '$id_producto';";
+      
+    if ($conn->query($eliminar) === TRUE) {
+        echo "1";//Succes
+        } else {
+        echo "a";//Error
+        }
+        
+    $conn->close();
+  
 }
 
 
