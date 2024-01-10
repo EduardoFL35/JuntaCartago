@@ -91,12 +91,6 @@ $query = $conn->query("select * from activo where status = 1");
                     <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2 active" href="../index.php">
-                                    <i class="bi bi-house-fill"></i>
-                                    Panel de Control
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center gap-2" href="#" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="true">
                                     <i class="bi bi-box-seam"></i>Activos
                                 </a>
@@ -189,7 +183,7 @@ $query = $conn->query("select * from activo where status = 1");
                                 <div class="col-md-6 col-lg-4 mb-4">
                                     <div class="listing d-block  align-items-stretch">
                                         <div class="listing-img h-100 mr-4">
-                                            <img src="../../img/activo_Computadora_Oficina.jpg" alt="Image" class="img-fluid">
+                                            <img src="../../<?php echo $Imagen; ?>" alt="Image" class="img-fluid">
                                         </div>
                                         <div class="listing-contents h-100">
                                             <h3><?php echo $Nombre; ?></h3>
@@ -252,8 +246,13 @@ $query = $conn->query("select * from activo where status = 1");
                                                 </div>
                                             </div>
                                             <div>
-                                                <a href="#" class="btn btn-danger">Eliminar</a>
-                                                <a href="#" style="color: #ffffff; background-color: #001F3F;" class="btn ms-auto">Editar</a>
+                                                <a data-id="<?php echo $id;?>" class="eliminar btn btn-danger">
+                                                    <i class="bi bi-eraser"></i>Eliminar
+                                                </a>
+                                                <a style="color: #ffffff; background-color: #001F3F;" id="btn_editar_doc" class="btn ms-auto" data-bs-toggle="modal" data_id="<?php echo $id;?>" data-bs-target="#modalEditar">
+                                                    <i class="bi bi-pencil-square"></i>Editar
+                                                </a>
+                                                
                                             </div>
                                         </div>     
                                     </div>

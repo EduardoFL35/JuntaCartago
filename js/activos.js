@@ -1,3 +1,244 @@
+function funcion_modal_editar_activo (){
+    //Guardar Factura
+    jQuery("input[name='factura_activo']").on("change", function(){
+        jQuery("#msg_error").html("");
+        jQuery("#msg_error").hide();
+        //queremos que esta variable sea global
+        var fileExtension = "";
+        //obtenemos un array con los datos del archivo
+        var file = jQuery("#factura_activo")[0].files[0];
+        //obtenemos el nombre del archivo
+        var fileName = file.name;
+        //obtenemos la extensión del archivo
+        fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+        //obtenemos el tamaño del archivo
+        var fileSize = file.size;
+        //obtenemos el tipo de archivo image/png ejemplo
+        var fileType = file.type;
+
+        var formData = new FormData();
+        formData.append("factura_activo",file);
+        var message = "";
+
+        jQuery.ajax({
+            url: "../../ajax/AActivos",
+            type: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data:formData,
+            beforeSend: function(){
+                // mensaje cuando se esta cargando imagen para enviar.
+                jQuery("#msg_error").show();
+                jQuery("#msg_error").html("<span class='before'>Subiendo la factura, por favor espere...</span>");
+                console.log('Cargando factura');
+            },
+            // una vez finalizado correctamente
+            success: function(data){
+                switch(data){
+                    case "a":
+                        console.log("Error al cargar la factura");
+                        break;
+                    default:
+                        jQuery("#nombre_factura_editar").val(data);
+                        console.log("cargó la factura" + data);
+                        break;
+                }
+            },
+            // si ha ocurrido un error
+            error: function(){
+                message = jQuery("<span class='error'>Ha ocurrido un error.</span>");
+                console.log("Error");
+            }
+        });
+    });
+
+    //Guardar Imagen
+    jQuery("input[name='imagen_activo']").on("change", function(){
+        jQuery("#msg_error").html("");
+        jQuery("#msg_error").hide();
+        //queremos que esta variable sea global
+        var fileExtension = "";
+        //obtenemos un array con los datos del archivo
+        var file = jQuery("#imagen_activo")[0].files[0];
+        //obtenemos el nombre del archivo
+        var fileName = file.name;
+        //obtenemos la extensión del archivo
+        fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+        //obtenemos el tamaño del archivo
+        var fileSize = file.size;
+        //obtenemos el tipo de archivo image/png ejemplo
+        var fileType = file.type;
+
+        var formData = new FormData();
+        formData.append("imagen_activo_p",file);//
+        var message = "";
+
+        jQuery.ajax({
+            url: "../../ajax/AActivos",
+            type: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data:formData,
+            beforeSend: function(){
+                // mensaje cuando se esta cargando imagen para enviar.
+                jQuery("#msg_error").show();
+                jQuery("#msg_error").html("<span class='before'>Subiendo la imagen, por favor espere...</span>");
+                console.log('Cargando imagen');
+            },
+            // una vez finalizado correctamente
+            success: function(data){
+                switch(data){
+                    case "a":
+                        console.log("Error al cargar imagen");
+                        break;
+                    default:
+                        jQuery("#nombre_imagen_editar").val(data);
+                        console.log("cargó la imagen" + data);
+                        break;
+                }
+            },
+            // si ha ocurrido un error
+            error: function(){
+                message = jQuery("<span class='error'>Ha ocurrido un error.</span>");
+                console.log("Error");
+            }
+        });
+    });
+    
+    //Agregar Activo
+    jQuery("#activo_form_editar").submit(function(){/*Acordarse que el # indica el id a la que se le da click*/
+		var codigo_activo_editar = jQuery("#codigo_activo_editar").val();
+        var nombre_activo_editar = jQuery("#nombre_activo_editar").val();
+        var desc_activo_editar = jQuery("#desc_activo_editar").val();
+        var color_activo_editar = jQuery("#color_activo_editar").val();
+        var monto_activo_editar = jQuery("#monto_activo_editar").val();
+        var cantidad_activo_editar = jQuery("#cantidad_activo_editar").val();
+        var cantidad_minima_activo_editar = jQuery("#cantidad_activo_editar").val();
+        var fecha_inicio_activo_editar = jQuery("#fecha_inicio_activo_editar").val();
+        var fecha_final_activo_editar = jQuery("#fecha_final_activo_editar").val();
+        var estado_activo_editar = jQuery("#estado_activo_editar").val();
+        var nota_activo_editar = jQuery("#nota_activo_editar").val();
+        var nombre_imagen_editar = jQuery("#nombre_imagen_editar").val();
+        var nombre_factura_editar = jQuery("#nombre_factura_editar").val();
+        var id_activo_editar = jQuery("#id_activo_editar").val();
+        jQuery("#codigo_activo_editar").css("border", "");
+        jQuery("#nombre_activo_editar").css("border", "");
+        jQuery("#desc_activo_editar").css("border", "");
+        jQuery("#color_activo_editar").css("border", "");
+        jQuery("#monto_activo_editar").css("border", "");
+        jQuery("#cantidad_activo_editar").css("border", "");
+        jQuery("#cantidad_minima_activo_editar").css("border", "");
+        jQuery("#fecha_inicio_activo_editar").css("border", "");
+        jQuery("#fecha_final_activo_editar").css("border", "");
+        jQuery("#estado_activo_editar").css("border", "");
+        jQuery("#nota_activo_editar").css("border", "");
+
+        if (codigo_activo_editar == "") {
+            jQuery("#codigo_activo_editar").css("border", "2px solid red");
+            return false;
+        }
+        if (nombre_activo_editar == "") {
+            jQuery("#nombre_activo_editar").css("border", "2px solid red");
+            return false;
+        }
+        if (desc_activo_editar == "") {
+            jQuery("#desc_activo_editar").css("border", "2px solid red");
+            return false;
+        }
+        if (color_activo_editar == "") {
+            jQuery("#color_activo_editar").css("border", "2px solid red");
+            return false;
+        }
+        if (monto_activo_editar == "") {
+            jQuery("#monto_activo_editar").css("border", "2px solid red");
+            return false;
+        }
+        if (cantidad_activo_editar == "") {
+            jQuery("#cantidad_activo_editar").css("border", "2px solid red");
+            return false;
+        }
+        if (cantidad_minima_activo_editar == "") {
+            jQuery("#cantidad_minima_activo_editar").css("border", "2px solid red");
+            return false;
+        }
+        if (fecha_inicio_activo_editar == "") {
+            jQuery("#fecha_inicio_activo_editar").css("border", "2px solid red");
+            return false;
+        }
+        if (fecha_final_activo_editar == "") {
+            jQuery("#fecha_final_activo_editar").css("border", "2px solid red");
+            return false;
+        }
+        if (estado_activo_editar == "") {
+            jQuery("#estado_activo_editar").css("border", "2px solid red");
+            return false;
+        }
+
+        if (nombre_imagen_editar === "") {
+            alert("Falta subir la imagen");
+            return false;
+        }
+        if (nombre_factura_editar === "") {
+            alert("Falta subir la factura");
+            return false;
+        }
+        
+		jQuery.ajax({
+			type: "POST", 
+			url: "../../ajax/AActivos",
+			dataType:"text",
+			data:{
+                
+                key_editar_activo: "edit_activo",
+                id_activo_editar: id_activo_editar,
+                codigo_activo_editar : codigo_activo_editar,
+                nombre_activo_editar : nombre_activo_editar,
+                desc_activo_editar : desc_activo_editar,
+                color_activo_editar : color_activo_editar,  
+                monto_activo_editar : monto_activo_editar,  
+                cantidad_activo_editar : cantidad_activo_editar,
+                cantidad_minima_activo_editar : cantidad_minima_activo_editar,
+                fecha_inicio_activo_editar : fecha_inicio_activo_editar,
+                fecha_final_activo_editar : fecha_final_activo_editar,
+                estado_activo_editar : estado_activo_editar,
+                nota_activo_editar : nota_activo_editar,
+                nombre_imagen_editar : nombre_imagen_editar,
+                nombre_factura_editar : nombre_factura_editar
+			},             
+			success:function(ndata){  
+                console.log(ndata);
+				switch (ndata) {
+                    case "1":
+                        jQuery("#alerta_registro").addClass("alert alert-success")
+                        jQuery("#alerta_registro").html("¡Se actualizó un activo correctamente!")
+                        var alertaRegistro = document.getElementById("alerta_registro");
+                        alertaRegistro.scrollIntoView({ behavior: "smooth" });
+
+                        setTimeout(function () {
+                            location.reload();
+                        }, 3000);
+                        break;
+
+                    case "a":
+                        jQuery("#alerta_registro").addClass("alert alert-danger")
+                        jQuery("#alerta_registro").html("¡Error al ingresar datos!")
+                        break;    
+                
+                    default:
+                        break;
+                }                     
+			},
+			error:function (xhr, ajaxOptions, thrownError){                 
+				alert(thrownError);
+			} 
+		});
+        return false;
+	});
+
+}
+
 jQuery(document).ready( function () {
     console.log("Cargó el JS de Activos")
 
@@ -104,10 +345,12 @@ jQuery(document).ready( function () {
                     case "1":
                         jQuery("#alerta_registro").addClass("alert alert-success")
                         jQuery("#alerta_registro").html("¡Se guardó un activo correctamente!")
-                        
+                        var alertaRegistro = document.getElementById("alerta_registro");
+                        alertaRegistro.scrollIntoView({ behavior: "smooth" });
+
                         setTimeout(function () {
                             location.reload();
-                        }, 4000);
+                        }, 3000);
                         break;
 
                     case "a":
@@ -127,7 +370,7 @@ jQuery(document).ready( function () {
 	});
 
     
-
+    //Añadir una nota
     jQuery(".nota_activo_form").submit(function(){/*Acordarse que el # indica el id a la que se le da click*/
            
         var id_activo = jQuery(this).attr("data-id");
@@ -248,7 +491,6 @@ jQuery(document).ready( function () {
         //obtenemos el tipo de archivo image/png ejemplo
         var fileType = file.type;
 
-        alert(fileName);
         var formData = new FormData();
         formData.append("imagen_activo_p",file);//
         var message = "";
@@ -268,7 +510,6 @@ jQuery(document).ready( function () {
             },
             // una vez finalizado correctamente
             success: function(data){
-                alert(data);
                 switch(data){
                     case "a":
                         console.log("Error al cargar imagen");
@@ -308,7 +549,7 @@ jQuery(document).ready( function () {
                     
                     setTimeout(function () {
                         location.reload();
-                    }, 3000);
+                    }, 2000);
                     break;
 
                 case "a":
@@ -324,6 +565,36 @@ jQuery(document).ready( function () {
                 alert(thrownError);
             } 
         });
+        return false;
+    });
+
+    //Editar Activo
+    jQuery(".editar-activo-btn").click(function(){
+        var id_edit_activo = jQuery(this).attr("data_id");
+        jQuery.ajax({
+			type: "POST", 
+			url: "../../ajax/AActivos",
+			dataType:"text",
+			data:{
+				key_editar: "editar_activo",
+				id_edit_activo: id_edit_activo
+			},             
+			success:function(ndata){  
+				switch (ndata) {
+                    case "a":
+                        jQuery("#action").html("<p>Error al insertar datos</p>")
+                        break;    
+                    default:
+                        console.log(ndata);
+                        jQuery("#modal_ajax").html(ndata);
+                        funcion_modal_editar_activo();
+                        break;
+                }                     
+			},
+			error:function (xhr, ajaxOptions, thrownError){                 
+				alert(thrownError);
+			} 
+		});
         return false;
     });
 

@@ -90,12 +90,7 @@ $query = $conn->query("select * from activo where status = 1");
                 <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
                     <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2 active" href="../index.php">
-                                    <i class="bi bi-house-fill"></i>
-                                    Panel de Control
-                                </a>
-                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center gap-2" href="#" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="true">
                                     <i class="bi bi-box-seam"></i>Activos
@@ -221,7 +216,7 @@ $query = $conn->query("select * from activo where status = 1");
                                                 <tr>
                                                     <td class="td-list"><?php echo $Codigo; ?></td>
                                                     <td class="td-list"><?php echo $Nombre; ?></td>
-                                                    <td class="td-list"><img src="../../img/activo_Computadora_Oficina.jpg" width="100"></td>
+                                                    <td class="td-list"><img src="../../<?php echo $Imagen; ?>" width="100"></td>
                                                     <td class="td-list"><?php echo $Descripción; ?></td>
                                                     <td class="td-list"><?php echo $nombre_color; ?></td>
                                                     <td class="td-list">&#8353;<?php echo $Precio; ?></td>
@@ -238,9 +233,8 @@ $query = $conn->query("select * from activo where status = 1");
                                                                     Opciones
                                                                 </a>
                                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                                    <a id="btn_editar_doc" class="dropdown-item" data-bs-toggle="modal" data_id="<?php echo $id;?>" data-bs-target="#modalEditar">
-                                                                        <i class="bi bi-pencil-square"></i>
-                                                                    Editar
+                                                                    <a id="btn_editar_activo" class="editar-activo-btn dropdown-item" data-bs-toggle="modal" data_id="<?php echo $id;?>" data-bs-target="#modalEditarActivo">
+                                                                        <i class="bi bi-pencil-square"></i>Editar
                                                                     </a>
                                                                     <a data-id="<?php echo $id;?>" class=" eliminar dropdown-item text-red">
                                                                         <i class="bi bi-eraser"></i>    
@@ -267,6 +261,20 @@ $query = $conn->query("select * from activo where status = 1");
                     </div>
                 </div> 
             </main>
+        </div>
+    </div>
+    <!--Modal Editar -->
+    <div class="modal fade" id="modalEditarActivo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Activo</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="modal_ajax">
+                    
+                </div>   
+            </div>
         </div>
     </div>
 

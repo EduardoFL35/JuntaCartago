@@ -205,7 +205,7 @@ $query = $conn->query("select * from documento where estado = 1");
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Cita</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Documento</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div id="modal_ajax">

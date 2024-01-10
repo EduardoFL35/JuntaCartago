@@ -91,7 +91,7 @@ if(isset($_POST['key_registro']) == "registro_doc"){
     }
     ?>
         <form id="documento_form_editar">
-            <input type="hidden" id="id_activo_editar" value="<?php echo $id_edit?>">
+            <input type="hidden" id="id_documento_editar" value="<?php echo $id_edit?>">
             <div class="form-group row">
                 <div class="col-sm-6">
                     <label class="form-label">Nombre</label>
@@ -199,7 +199,7 @@ if(isset($_POST['key_registro']) == "registro_doc"){
         
     $conn->close();
 }elseif(isset($_POST['key_editar_registro']) == "editar_registro_doc"){
-    $id_activo_editar = $_POST['id_activo_editar'];
+    $id_documento_editar = $_POST['id_documento_editar'];
     $nombre_doc = $_POST['nombre_doc_editar'];
     $fecha_doc = $_POST['fecha_doc_editar']; 
     $tipo_doc = $_POST['tipo_doc_editar'];
@@ -214,7 +214,7 @@ if(isset($_POST['key_registro']) == "registro_doc"){
                                           `descripcion`='".$desc_doc."',
                                           `url`='".$nombre_archivo."',
                                           `id_usuario`=".$id_usuario."
-                                           WHERE id = '".$id_activo_editar."'";
+                                           WHERE id = '".$id_documento_editar."'";
       
     if ($conn->query($editar_doc) === TRUE) {
         echo "1";//Succes

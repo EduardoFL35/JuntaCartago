@@ -58,7 +58,7 @@ function funcion_modal_editar (){
         var tipo_doc_editar = jQuery("#tipo_doc_editar").val();
         var desc_doc_editar = jQuery("#desc_doc_editar").val();
         var nombre_archivo_editar = jQuery("#nombre_archivo_editar").val();
-        var id_activo_editar = jQuery("#id_activo_editar").val(); 
+        var id_documento_editar = jQuery("#id_documento_editar").val(); 
         jQuery("#nombre_doc_editar").css("border", "");
         jQuery("#fecha_doc_editar").css("border", "");
         jQuery("#tipo_doc_editar").css("border", "");
@@ -96,7 +96,7 @@ function funcion_modal_editar (){
                 tipo_doc_editar: tipo_doc_editar,
                 desc_doc_editar: desc_doc_editar,
                 nombre_archivo_editar : nombre_archivo_editar,
-                id_activo_editar : id_activo_editar
+                id_documento_editar : id_documento_editar
 			},             
 			success:function(ndata){  
                 console.log("->" + ndata);

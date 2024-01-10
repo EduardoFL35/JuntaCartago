@@ -140,7 +140,269 @@ if(isset($_POST['key_registro_activo']) == "registro_activo"){
         }
         
     $conn->close();
-  
+ 
+ //Editar activo   
+}elseif (isset($_POST['key_editar']) == "editar_activo") {
+
+    $id_edit = $_POST['id_edit_activo'];
+    $editActivo = "SELECT * FROM activo WHERE id = $id_edit";
+    $query = $conn->query($editActivo);  
+
+    if($query->num_rows > 0){
+        while ($row = $query->fetch_assoc()){
+            $id = $row['id'];
+            $Codigo = $row['codigo']; 
+            $Nombre = $row['nombre']; 
+            $Descripción = $row['descripcion'];
+            $Color = $row['color_id'];
+            $Precio = $row['precio'];
+            $Cantidad = $row['cantidad'];
+            $Cantidad_Mínima = $row['cantidad_minima'];
+            $Imagen = $row['imagen'];
+            $Imagen_m = str_replace("img/", "", $Imagen);
+            $Estado = $row['estado_id'];
+            $Factura = $row['factura'];
+            $Factura_m = str_replace("img/", "", $Factura);
+            $Nota = $row['nota'];
+            $Fecha_Inicio = $row['fecha_inicio'];
+            $Fecha_Finalizacion = $row['fecha_finalizacion'];
+
+        }
+    }
+    ?>
+    <div class="p-2">
+        <div id="alerta_registro">
+
+        </div>
+        <form id="activo_form_editar">
+            <input type="hidden" id="id_activo_editar" value="<?php echo $id_edit?>">            
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label class="form-label">Código</label>
+                    <div>
+                        <input type="text" class="form-control" placeholder="Código" id="codigo_activo_editar" name="codigo_activo_editar" value="<?php echo $Codigo?>">
+                    </div>
+                </div>
+                
+                <div class="col-sm-6">
+                    <label class="form-label">Nombre</label>
+                    <div>
+                        <input type="text" class="form-control" placeholder="Nombre" id="nombre_activo_editar" name="nombre_activo_editar" value="<?php echo $Nombre?>">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label class="form-label">Descripción</label>
+                    <div>
+                        <textarea class="form-control" name="desc_activo_editar" id="desc_activo_editar" rows="2" placeholder="Descripción"><?php echo $Descripción?></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label for="archivo" class="form-label">Monto</label>
+                    <input type="number" class="form-control" name="monto_activo_editar" id="monto_activo_editar" placeholder="Monto Total" value="<?php echo $Precio?>">
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="archivo" class="form-label">Cantidad</label>
+                    <input type="number" class="form-control" name="cantidad_activo_editar" id="cantidad_activo_editar" placeholder="Cantidad Total" value="<?php echo $Cantidad?>">
+                </div>
+                <div class="col-sm-6">
+                    <label for="archivo" class="form-label">Cantidad Mínima</label>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Cantidad Mínima del Activo">
+                        <i class="bi bi-question-circle"></i>
+                    </span>
+                    <input type="number" class="form-control" name="cantidad_minima_activo_editar" id="cantidad_minima_activo_editar" placeholder="Cantidad Mínima del Activo" value="<?php echo $Cantidad_Mínima?>">
+                </div>
+            </div>
+            <br> 
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="factura_activo" class="form-label">Cargar Factura</label>
+                    <input type="file" name="factura_activo" class="form-control form-control-file" id="factura_activo">
+                    <input type="hidden" id="nombre_factura_editar" value="<?php echo $Factura_m; ?>">
+                    <div id="mostrar_factura_activo"><a class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+                                                        href="http://localhost/Proyecto/Git/JuntaCartago/js/archivos/<?php echo $Factura_m; ?>">Factura</a>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label for="imagen_activo" class="form-label">Cargar Imagen</label>
+                    <input type="file" name="imagen_activo" class="form-control form-control-file" id="imagen_activo">
+                    <input type="hidden" id="nombre_imagen_editar" value="<?php echo $Imagen_m; ?>">
+                    <div id="mostrar_imagen_activo"><a class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+                                                    href="http://localhost/Proyecto/Git/JuntaCartago/img/<?php echo $Imagen_m; ?>">Imagen</a>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label class="form-label">Fecha de inicio de la garantía</label>
+                    <div>
+                        <input type="date" name="fecha_inicio_activo_editar" id="fecha_inicio_activo_editar" class="form-control" placeholder="Fecha de inicio de la garantía" value="<?php echo $Fecha_Inicio; ?>">
+                    </div>
+                </div>   
+                <div class="col-sm-6">
+                    <label class="form-label">Fecha de final de la garantía</label>
+                    <div>
+                        <input type="date" name="fecha_final_activo_editar" id="fecha_final_activo_editar" class="form-control" placeholder="Fecha de final de la garantía" value="<?php echo $Fecha_Finalizacion; ?>">
+                    </div>
+                </div>  
+            </div>
+            <br>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label class="form-label">Estado</label>
+                    <div>
+                        <select name="estado_activo_editar" id="estado_activo_editar" class="form-select" placeholder="Estado">
+                        <?php
+                            if ($Estado == 1) {
+                                echo '<option value="1" selected>Nuevo</option>';
+                            }else{
+                                echo '<option value="1" >Nuevo</option>';
+                            }
+                            if ($Estado == 2) {
+                                echo '<option value="2" selected>Agotado</option>';
+                            }else{
+                                echo '<option value="2" >Agotado</option>';
+                            }
+                            if ($Estado == 3) {
+                                echo '<option value="3" selected>Dañado</option>';
+                            }else{
+                                echo '<option value="3" >Dañado</option>';
+                            }
+                            if ($Estado == 4) {
+                                echo '<option value="4" selected>En reparación</option>';
+                            }else{
+                                echo '<option value="4" >En reparación</option>';
+                            }
+                            
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="form-label">Color</label>
+                    <div>
+                        <select name="color_activo_editar" id="color_activo_editar" class="form-select" placeholder="Color">
+                            <?php 
+                            if ($Color == 1) {
+                                echo '<option value="1" selected>Negro</option>';
+                            }else{
+                                echo '<option value="1" >Negro</option>';
+                            }
+                            if ($Color == 2) {
+                                echo '<option value="2" selected>Blanco</option>';
+                            }else{
+                                echo '<option value="2" >Blanco</option>';
+                            }
+                            if ($Color == 3) {
+                                echo '<option value="3" selected>Azul</option>';
+                            }else{
+                                echo '<option value="3" >Azul</option>';
+                            }
+                            if ($Color == 4) {
+                                echo '<option value="4" selected>Café</option>';
+                            }else{
+                                echo '<option value="4" >Café</option>';
+                            }
+                            if ($Color == 5) {
+                                echo '<option value="5" selected>Verde</option>';
+                            }else{
+                                echo '<option value="5" >Verde</option>';
+                            }
+                            if ($Color == 6) {
+                                echo '<option value="6" selected>Rojo</option>';
+                            }else{
+                                echo '<option value="6" >Rojo</option>';
+                            }
+                            if ($Color == 7) {
+                                echo '<option value="7" selected>Gris</option>';
+                            }else{
+                                echo '<option value="7" >Gris</option>';
+                            }
+                            if ($Color == 8) {
+                                echo '<option value="8" selected>Celeste</option>';
+                            }else{
+                                echo '<option value="8" >Celeste</option>';
+                            }
+                            ?>
+                            
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label class="form-label">Nota</label>
+                    <div>
+                        <textarea class="form-control" name="nota_activo_editar" id="nota_activo_editar" rows="2" placeholder="Nota"><?php echo $Nota; ?></textarea>
+                    </div>
+                </div>
+            </div> 
+            <br>
+            <div class="form-footer">
+                <div class="text-end">
+                    <div class="d-flex">
+                        <a href="#" class="btn btn-danger">Cancelar</a>
+                        <button id="action" type="submit" style="color: #ffffff; background-color: #001F3F;" class="btn ms-auto">Guardar</button>
+                    </div>
+                </div>
+            </div>           
+        </form>
+    </div>     
+    <?php
+
+}elseif(isset($_POST['key_editar_activo']) == "edit_activo"){
+    $codigo_activo_editar = $_POST['codigo_activo_editar'];
+    $nombre_activo_editar = $_POST['nombre_activo_editar'];
+    $desc_activo_editar = $_POST['desc_activo_editar'];
+    $color_activo_editar = $_POST['color_activo_editar'];  
+    $monto_activo_editar = $_POST['monto_activo_editar'];  
+    $cantidad_activo_editar = $_POST['cantidad_activo_editar'];
+    $cantidad_minima_activo_editar = $_POST['cantidad_minima_activo_editar'];
+    $fecha_inicio_activo_editar = $_POST['fecha_inicio_activo_editar'];
+    $fecha_final_activo_editar = $_POST['fecha_final_activo_editar'];
+    $estado_activo_editar = $_POST['estado_activo_editar'];
+    $nota_activo_editar = $_POST['nota_activo_editar'];
+    $nombre_imagen = "img/".$_POST['nombre_imagen_editar'];
+    $nombre_factura = "archivos/".$_POST['nombre_factura_editar'];
+    $id_activo_editar = $_POST['id_activo_editar'];
+    
+
+
+    $editar_activo = "UPDATE `activo` SET `codigo`='".$codigo_activo_editar."',
+                                          `nombre`='".$nombre_activo_editar."',
+                                          `descripcion`='".$desc_activo_editar."',
+                                          `color_id`='".$color_activo_editar."',
+                                          `precio`=".$monto_activo_editar.",
+                                          `cantidad`=".$cantidad_activo_editar.",
+                                          `cantidad_minima`=".$cantidad_minima_activo_editar.",
+                                          `imagen`='".$nombre_imagen."',
+                                          `estado_id`=".$estado_activo_editar.",
+                                          `fecha_inicio`='".$fecha_inicio_activo_editar."',
+                                          `fecha_finalizacion`='".$fecha_final_activo_editar."',
+                                          `factura`='".$nombre_factura."',
+                                          `nota`='".$nota_activo_editar."' WHERE id = '".$id_activo_editar."'";
+      
+    if ($conn->query($editar_activo) === TRUE) {
+        echo "1";//Succes
+        } else {
+        echo "a";//Error
+        }
+        
+    $conn->close();
+
+
+
+}else{
+    //Output error
+    header('HTTP/1.1 500 Error, intenta de nuevo!');
+    //exit();
 }
 
 
