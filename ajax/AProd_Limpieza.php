@@ -8,12 +8,12 @@ if(isset($_POST['key_registro_producto']) == "key_registro_producto"){
     $precio_producto = $_POST['precio_producto'];
     $cantidad_producto = $_POST['cantidad_producto'];
     $cantidad_minima_producto = $_POST['cantidad_minima_producto'];
-    $factura_producto = "archivos/".$_POST['factura_producto']; 
-    $imagen_producto = "img/".$_POST['imagen_producto'];
+    $nombre_factura = "archivos/".$_POST['nombre_factura']; 
+    $nombre_imagen = "img/".$_POST['nombre_imagen'];
     $desc_producto = $_POST['desc_producto'];
 
     $sql = "INSERT INTO `producto_limpieza`(`nombre`, `descripcion`, `precio`, `cantidad`, `cantidad_minima`, `imagen`, `factura`, `status`) 
-    VALUES ('".$nombre_producto."','".$desc_producto."',".$precio_producto.",".$cantidad_producto.",'".$cantidad_minima_producto."','".$imagen_producto."','".$factura_producto."',1)";
+    VALUES ('".$nombre_producto."','".$desc_producto."',".$precio_producto.",".$cantidad_producto.",'".$cantidad_minima_producto."','".$nombre_imagen."','".$nombre_factura."',1)";
 
     if ($conn->query($sql) === TRUE) {
         echo "1";//Succes
@@ -56,14 +56,45 @@ if(isset($_POST['key_registro_producto']) == "key_registro_producto"){
         }else{
             echo "a";
         }
+}elseif(isset($_FILES["factura_producto"])){
+    $file = $_FILES["factura_producto"];
+    $nombre_formato = $file["name"];
+    $nombre = str_replace(" ", "", $nombre_formato);
+    $tipo = $file["type"];
+    $ruta_provisional = $file["tmp_name"];//donde está ahorita el archivo en el sv
+    $size = $file["size"];
+    $carpeta_destino = "D:/wamp64/www/Proyecto/Git/JuntaCartago/js/archivos/";//Servidor local
+    $fecha = date("d-m-Y H:i:s");
+    $hoy = date("d-m-Y");
+    $key_fecha = strtotime($fecha);//cambia la fecha por una cadena 
+
+    if (!file_exists($carpeta_destino)) {
+        mkdir($carpeta_destino, 0777, true);
+    }
+    if (!is_uploaded_file($ruta_provisional)) {
+        // Manejar el error aquí
+        echo 'El archivo no se ha cargado correctamente.';
+        exit;
+    }
+
+    $nombre_archivo = $key_fecha.$nombre;
+        $src2 = $carpeta_destino.$nombre_archivo;
+        if(move_uploaded_file($ruta_provisional,$src2)){
+            $file=$src2;
+            $resizedFile=$file;
+            echo $nombre_archivo;
+            die();
+        }else{
+            echo "a";
+        }
 }elseif(isset($_FILES["imagen_producto"])){
     $file_img = $_FILES["imagen_producto"];
     $nombre_formato_img = $file_img["name"];
     $nombre_img = str_replace(" ", "", $nombre_formato_img);
     $tipo_img = $file_img["type"];
     $ruta_provisional_img = $file_img["tmp_name"];//donde está ahorita el archivo en el sv
-    $size_img = $file["size"];
-    $carpeta_destino_img = "D:/wamp64/www/Proyecto/Git/JuntaCartago/img";//Servidor local
+    $size_img = $file_img["size"];
+    $carpeta_destino_img = "D:/wamp64/www/Proyecto/Git/JuntaCartago/img/";//Servidor local
     $fecha_img = date("Y-m-d H:i:s");
     $hoy_img = date("Y-m-d");
     $key_fecha_img = strtotime($fecha_img);//cambia la fecha por una cadena 
@@ -87,6 +118,8 @@ if(isset($_POST['key_registro_producto']) == "key_registro_producto"){
         }else{
             echo "a";
         }
+  
+ //Añadir una nota       
 }elseif(isset($_POST['key_nota_producto']) == "key_nota_producto"){
     $id_producto = $_POST['id_producto'];
     $message_limpieza = $_POST['message_limpieza'];

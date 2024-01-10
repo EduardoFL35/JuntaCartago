@@ -171,15 +171,15 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
                                 </div>
                                 <br>
                                 <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <label for="factura" class="form-label">Cargar Factura</label>
-                                        <input type="file" name="factura" class="form-control form-control-file" id="factura_producto">
-                                        <input type="hidden" id="nombre_factura_producto">
+                                <div class="col-sm-6">
+                                        <label for="factura_producto" class="form-label">Cargar Factura</label>
+                                        <input type="file" name="factura_producto" class="form-control form-control-file" id="factura_producto">
+                                        <input type="hidden" id="nombre_factura">
                                     </div>
                                     <div class="col-sm-6">
-                                        <label for="imagen" class="form-label">Cargar Imagen</label>
-                                        <input type="file" name="imagen" class="form-control form-control-file" id="imagen_producto">
-                                        <input type="hidden" id="nombre_imagen_producto">
+                                        <label for="imagen_producto" class="form-label">Cargar Imagen</label>
+                                        <input type="file" name="imagen_producto" class="form-control form-control-file" id="imagen_producto">
+                                        <input type="hidden" id="nombre_imagen">
                                     </div>
                                 </div>
                                 <br> 

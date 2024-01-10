@@ -164,7 +164,6 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                                         <table class="table card-table table-vcenter text-nowrap datatable">
                                             <thead class="table-secondary ">
                                                 <tr>
-                                                    <th class="th-list">#</th>
                                                     <th class="th-list">Nombre</th>
                                                     <th class="th-list">Descripción</th>
                                                     <th class="th-list">Imagen</th>
@@ -194,10 +193,9 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                                                 ?>
                                             <tbody>
                                                 <tr>
-                                                    <td class="td-list"><?php echo $id; ?></td>
                                                     <td class="td-list"><?php echo $Nombre; ?></td>
                                                     <td class="td-list"><?php echo $Descripcion; ?></td>
-                                                    <td class="td-list"><img src="../../img/producto_pastilla.webp" width="100"></td>
+                                                    <td class="td-list"><img src="../../<?php echo $Imagen; ?>" width="100"></td>
                                                     <td class="td-list">&#8353;<?php echo $Precio; ?></td>
                                                     <td class="td-list"><?php echo $Cantidad; ?></td>
                                                     <td class="td-list"><?php echo $Cantidad_Minima; ?></td>

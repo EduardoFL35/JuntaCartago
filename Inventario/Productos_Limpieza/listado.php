@@ -146,6 +146,7 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                                         $Cantidad = $row['cantidad'];
                                         $Cantidad_Minima = $row['cantidad_minima'];
                                         $Imagen = $row['imagen'];
+                                        $Nota = $row['nota'];
                                         $Total = $Cantidad * $Precio;
                                         
                                        
@@ -154,7 +155,7 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                                 <div class="col-md-6 col-lg-4 mb-4">
                                     <div class="listing d-block  align-items-stretch">
                                         <div class="listing-img h-100 mr-4">
-                                            <img src="../../img/producto_pastilla.webp" alt="Image" class="img-fluid">
+                                            <img src="../../<?php echo $Imagen; ?>" alt="Image" class="img-fluid">
                                         </div>
                                         <div class="listing-contents h-100">
                                             <h3><?php echo $Nombre; ?></h3>
@@ -184,7 +185,7 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                                                 <div class="listing-feature pr-4 m-1">
                                                     <span class="caption">Nota:</span>
                                                     <br>
-                                                    <span class="horario">Nota prueba</span>
+                                                    <span class="horario"><?php echo $Nota; ?></span>
                                                     
                                                 </div>
                                                 <div class="listing-feature pr-4 m-1">

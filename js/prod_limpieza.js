@@ -7,15 +7,13 @@ jQuery(document).ready( function () {
         var precio_producto = jQuery("#precio_producto").val();
         var cantidad_producto = jQuery("#cantidad_producto").val();
         var cantidad_minima_producto = jQuery("#cantidad_minima_producto").val();
-        var factura_producto = jQuery("#factura_producto").val();
-        var imagen_producto = jQuery("#imagen_producto").val();
+        var nombre_factura = jQuery("#nombre_factura").val();
+        var nombre_imagen = jQuery("#nombre_imagen").val();
         var desc_producto = jQuery("#desc_producto").val();
         jQuery("#nombre_producto").css("border", "");
         jQuery("#precio_producto").css("border", "");
         jQuery("#cantidad_producto").css("border", "");
         jQuery("#cantidad_minima_producto").css("border", "");
-        jQuery("#factura_producto").css("border", "");
-        jQuery("#imagen_producto").css("border", "");
         jQuery("#desc_producto").css("border", "");
         
         if (nombre_producto == "") {
@@ -39,11 +37,11 @@ jQuery(document).ready( function () {
             return false;
         }
 
-        if (factura_producto == "") {
+        if (nombre_factura == "") {
             alert("Falta subir la factura");
             return false;
         }
-        if (imagen_producto == "") {
+        if (nombre_imagen == "") {
             alert("Falta subir la imagen"); 
             return false;
         }
@@ -58,8 +56,8 @@ jQuery(document).ready( function () {
                 precio_producto : precio_producto,
                 cantidad_producto : cantidad_producto,
                 cantidad_minima_producto : cantidad_minima_producto,  
-                factura_producto : factura_producto,  
-                imagen_producto : imagen_producto,
+                nombre_factura : nombre_factura,  
+                nombre_imagen : nombre_imagen,
                 desc_producto : desc_producto
 			},             
 			success:function(ndata){  
@@ -89,6 +87,114 @@ jQuery(document).ready( function () {
 		});
         return false;
 	});
+
+    //Guardar Factura
+    jQuery("input[name='factura_producto']").on("change", function(){
+        jQuery("#msg_error").html("");
+        jQuery("#msg_error").hide();
+        //queremos que esta variable sea global
+        var fileExtension = "";
+        //obtenemos un array con los datos del archivo
+        var file = jQuery("#factura_producto")[0].files[0];
+        //obtenemos el nombre del archivo
+        var fileName = file.name;
+        //obtenemos la extensión del archivo
+        fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+        //obtenemos el tamaño del archivo
+        var fileSize = file.size;
+        //obtenemos el tipo de archivo image/png ejemplo
+        var fileType = file.type;
+
+        var formData = new FormData();
+        formData.append("factura_producto",file);
+        var message = "";
+
+        jQuery.ajax({
+            url: "../../ajax/AProd_Limpieza",
+            type: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data:formData,
+            beforeSend: function(){
+                // mensaje cuando se esta cargando imagen para enviar.
+                jQuery("#msg_error").show();
+                jQuery("#msg_error").html("<span class='before'>Subiendo la factura, por favor espere...</span>");
+                console.log('Cargando factura');
+            },
+            // una vez finalizado correctamente
+            success: function(data){
+                switch(data){
+                    case "a":
+                        console.log("Error al cargar la imagen");
+                        break;
+                    default:
+                        jQuery("#nombre_factura").val(data);
+                        console.log("cargó la imagen" + data);
+                        break;
+                }
+            },
+            // si ha ocurrido un error
+            error: function(){
+                message = jQuery("<span class='error'>Ha ocurrido un error.</span>");
+                console.log("Error");
+            }
+        });
+    });
+
+    //Guardar Imagen
+    jQuery("input[name='imagen_producto']").on("change", function(){
+        jQuery("#msg_error").html("");
+        jQuery("#msg_error").hide();
+        //queremos que esta variable sea global
+        var fileExtension = "";
+        //obtenemos un array con los datos del archivo
+        var file = jQuery("#imagen_producto")[0].files[0];
+        //obtenemos el nombre del archivo
+        var fileName = file.name;
+        //obtenemos la extensión del archivo
+        fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+        //obtenemos el tamaño del archivo
+        var fileSize = file.size;
+        //obtenemos el tipo de archivo image/png ejemplo
+        var fileType = file.type;
+
+        var formData = new FormData();
+        formData.append("imagen_producto",file);//
+        var message = "";
+
+        jQuery.ajax({
+            url: "../../ajax/AProd_Limpieza",
+            type: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data:formData,
+            beforeSend: function(){
+                // mensaje cuando se esta cargando imagen para enviar.
+                jQuery("#msg_error").show();
+                jQuery("#msg_error").html("<span class='before'>Subiendo la imagen, por favor espere...</span>");
+                console.log('Cargando imagen');
+            },
+            // una vez finalizado correctamente
+            success: function(data){
+                switch(data){
+                    case "a":
+                        console.log("Error al cargar imagen");
+                        break;
+                    default:
+                        jQuery("#nombre_imagen").val(data);
+                        console.log("cargó la imagen" + data);
+                        break;
+                }
+            },
+            // si ha ocurrido un error
+            error: function(){
+                message = jQuery("<span class='error'>Ha ocurrido un error.</span>");
+                console.log("Error");
+            }
+        });
+    });
 
     //Agregar una nota
     jQuery("#nota_limpieza_form").submit(function(){/*Acordarse que el # indica el id a la que se le da click*/
