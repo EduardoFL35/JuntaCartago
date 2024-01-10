@@ -127,6 +127,8 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
             </div>
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div id="alerta_eliminar">
+                </div>
                 <div class="pt-3 pb-2 mb-3 ">
                     <div class="border-bottom">
                         <H1>Listado de Productos de Limpieza</H1>
@@ -197,8 +199,12 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                                                 </div>
                                             </div>
                                             <div>
-                                                <a href="#" class="btn btn-danger">Eliminar</a>
-                                                <a href="#" style="color: #ffffff; background-color: #001F3F;" class="btn ms-auto">Editar</a>
+                                                <a data-id="<?php echo $id;?>" class="btn btn-danger eliminar ">
+                                                    <i class="bi bi-eraser"></i>Eliminar
+                                                </a>
+                                                <a id="btn_editar_producto" style="color: #ffffff; background-color: #001F3F;" class="btn ms-auto editar-producto-btn " data-bs-toggle="modal" data_id="<?php echo $id;?>" data-bs-target="#modalEditarProducto">
+                                                    <i class="bi bi-pencil-square"></i>Editar
+                                                </a>
                                             </div>
                                         </div>     
                                     </div>
@@ -240,14 +246,21 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                 </div>
             </main>
         </div>
-    </div>            
-
-
-    
-    
-
-
-
+    </div>    
+    <!--Modal Editar -->
+    <div class="modal fade" id="modalEditarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Producto</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="modal_ajax">
+                    
+                </div>   
+            </div>
+        </div>
+    </div>        
 
 <footer class="mt-5 py-3 bg-light">
     <div class="container text-center">

@@ -6,7 +6,10 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
     header("location: http://$host/Proyecto/Git/JuntaCartago/login");// sino mandelo hacia acá
 }
 
-$query = $conn->query("select * from garantia where estado = 1"); 
+$query = $conn->query("SELECT garantia.*, activo.*
+                       FROM garantia
+                       JOIN activo ON garantia.id_activo = activo.id
+                       WHERE garantia.estado = 1 AND activo.status = 1;"); 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -156,7 +159,6 @@ $query = $conn->query("select * from garantia where estado = 1");
                                                     <th class="th-list">Fecha Inicio</th>
                                                     <th class="th-list">Fecha Finalización</th>
                                                     <th class="th-list">Factura</th>
-                                                    <th class="th-list"></th>
                                                 </tr>
                                             </thead>
                                             <?php
@@ -194,31 +196,6 @@ $query = $conn->query("select * from garantia where estado = 1");
                                                     <td class="td-list"><?php echo $Fecha_Finalizacion_formateada; ?></td>
                                                     <td class="td-list"><a class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" 
                                                                             href="http://localhost/Proyecto/Git/JuntaCartago/js/<?php echo $Factura; ?>">Ver Factura</a></td>
-                                                    <td class="td-list">
-                                                        <div class="btn-list flex-nowrap">
-                                                            <div class="dropdown">
-                                                                <a class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
-                                                                    Opciones
-                                                                </a>
-                                                                <div class="dropdown-menu dropdown-menu-end">
-                                                                    <a id="btn_editar_doc" class="dropdown-item" data-bs-toggle="modal" data_id="<?php echo $id;?>" data-bs-target="#modalEditar">
-                                                                        <i class="bi bi-pencil-square"></i>
-                                                                        Editar
-                                                                    </a>
-            
-                                                                    <a data-id="<?php echo $id;?>" class=" eliminar dropdown-item text-red">
-                                                                        <i class="bi bi-eraser"></i>    
-                                                                        Eliminar
-                                                                    </a>
-
-                                                                    <a id="btn_descargar_doc" class="dropdown-item" href="#">
-                                                                        <i class="bi bi-download"></i>
-                                                                        Descargar
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
                                                 </tr>
                                                 <?php
                                                         }

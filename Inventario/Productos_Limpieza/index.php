@@ -208,9 +208,8 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                                                                     Opciones
                                                                 </a>
                                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                                    <a id="btn_editar_doc" class="dropdown-item" data-bs-toggle="modal" data_id="<?php echo $id;?>" data-bs-target="#modalEditar">
-                                                                        <i class="bi bi-pencil-square"></i>
-                                                                    Editar
+                                                                    <a id="btn_editar_producto" class="editar-producto-btn dropdown-item" data-bs-toggle="modal" data_id="<?php echo $id;?>" data-bs-target="#modalEditarProducto">
+                                                                        <i class="bi bi-pencil-square"></i>Editar
                                                                     </a>
                                                                     <a data-id="<?php echo $id;?>" class=" eliminar dropdown-item text-red">
                                                                         <i class="bi bi-eraser"></i>    
@@ -236,6 +235,20 @@ $query = $conn->query("select * from producto_limpieza where status = 1");
                     </div>
                 </div> 
             </main>
+        </div>
+    </div>
+    <!--Modal Editar -->
+    <div class="modal fade" id="modalEditarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Producto</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="modal_ajax">
+                    
+                </div>   
+            </div>
         </div>
     </div>
 

@@ -113,6 +113,7 @@ if(isset($_POST['key_registro_activo']) == "registro_activo"){
         }else{
             echo "a";
         }
+ //Agregar Nota   
 }elseif(isset($_POST['key_nota_activo']) == "key_nota_activo"){
     $id_activo = $_POST['id_activo'];
     $message_activo = $_POST['message_activo'];
@@ -162,7 +163,7 @@ if(isset($_POST['key_registro_activo']) == "registro_activo"){
             $Imagen_m = str_replace("img/", "", $Imagen);
             $Estado = $row['estado_id'];
             $Factura = $row['factura'];
-            $Factura_m = str_replace("img/", "", $Factura);
+            $Factura_m = str_replace("activos/", "", $Factura);
             $Nota = $row['nota'];
             $Fecha_Inicio = $row['fecha_inicio'];
             $Fecha_Finalizacion = $row['fecha_finalizacion'];
