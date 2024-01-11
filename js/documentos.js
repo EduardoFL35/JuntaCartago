@@ -58,6 +58,7 @@ function funcion_modal_editar (){
         var tipo_doc_editar = jQuery("#tipo_doc_editar").val();
         var desc_doc_editar = jQuery("#desc_doc_editar").val();
         var nombre_archivo_editar = jQuery("#nombre_archivo_editar").val();
+        var tipo_procedencia = jQuery("#tipo_procedencia").val();
         var id_documento_editar = jQuery("#id_documento_editar").val(); 
         jQuery("#nombre_doc_editar").css("border", "");
         jQuery("#fecha_doc_editar").css("border", "");
@@ -84,6 +85,10 @@ function funcion_modal_editar (){
             alert("Falta subir el archivo");
             return false;
         }
+        if (tipo_procedencia == "") {
+            jQuery("#tipo_procedencia").css("border", "2px solid red");
+            return false;
+        }
         
 		jQuery.ajax({
 			type: "POST", 
@@ -96,7 +101,8 @@ function funcion_modal_editar (){
                 tipo_doc_editar: tipo_doc_editar,
                 desc_doc_editar: desc_doc_editar,
                 nombre_archivo_editar : nombre_archivo_editar,
-                id_documento_editar : id_documento_editar
+                id_documento_editar : id_documento_editar,
+                tipo_procedencia: tipo_procedencia
 			},             
 			success:function(ndata){  
                 console.log("->" + ndata);

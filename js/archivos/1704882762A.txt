@@ -1,0 +1,13 @@
+Tipo de documento vista para cada una por separado(Navbar - Supported content )
+Control activos tipo inventario(Se pueda agregar una nota)
+Listado de documentos por escuela
+Control de Vacaciones(Agregar una opción de perfil, dentro de perfil, forms disable, y acción a vacaciones)*
+Control de Presupuesto(Vista)=>Que se vaya restando el presupuesto anual por escuela(Ingresos, salida)=>Barra de progreso*
+Roles para cada escuela, super usuario, usuario y administrador(Permisos para visualizar y editar y eliminar según la escuela)
+Ventana de solicitudes por escuela
+Calendario para asignar reuniones dentro de la junta*
+Ordenes de compra(Vista-admin)=>Dividirlo entre presupuesto ordinario y panea
+Control de garantía de los activos(Tabla)
+Inventario de Artículos de limpieza
+
+Pagar hasta que digamos que si, primer semana de enero para entregarlo el 10

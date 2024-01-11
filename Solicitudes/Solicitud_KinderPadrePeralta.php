@@ -5,7 +5,7 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
     $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
     header("location: http://$host/Proyecto/Git/JuntaCartago/login");// sino mandelo hacia acá
 }
-$query = $conn->query("select * from control_documento where estado = 1"); 
+$query = $conn->query("select * from solicitudes where id_procedencia = 6"); 
 
 if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
     echo "<p>No tiene permisos</p>";
@@ -19,10 +19,11 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control de Archivos - Junta De Cartago</title>
+    <title>Solicitudes - Junta De Cartago</title>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../js/documentos.js"></script>
+    <script src="../js/script.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -49,7 +50,7 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
                     
                     <?php if ($_SESSION["rol"] == 1 && 3) {
                         ?><li class="nav-item">
-                                <a class="nav-link" href="registro.php">
+                                <a class="nav-link" href="../Documentos/registro.php">
                                     <i class=" bi bi-file-earmark-arrow-down"></i>Registro De Documentos
                                 </a>
                             </li>                    
@@ -64,14 +65,14 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Tipos/Adjudicacion.php">Adjudicaciones</a></li>
-                                    <li><a class="dropdown-item" href="Tipos/Contrato.php">Contratos</a></li>
-                                    <li><a class="dropdown-item" href="Tipos/Actas.php">Actas</a></li>
-                                    <li><a class="dropdown-item" href="Tipos/Oficios.php">Oficios</a></li>
-                                    <li><a class="dropdown-item" href="Tipos/Expedientes.php">Expedientes</a></li>
-                                    <li><a class="dropdown-item" href="Tipos/OrdenesDeCompra.php">Ordenes de compra</a></li>  
-                                    <li><a class="dropdown-item" href="Tipos/Plantillas.php">Plantillas</a></li>
-                                    <li><a class="dropdown-item" href="Tipos/Cheques.php">Cheques</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Tipos/Adjudicacion.php">Adjudicaciones</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Tipos/Contrato.php">Contratos</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Tipos/Actas.php">Actas</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Tipos/Oficios.php">Oficios</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Tipos/Expedientes.php">Expedientes</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Tipos/OrdenesDeCompra.php">Ordenes de compra</a></li>  
+                                    <li><a class="dropdown-item" href="../Documentos/Tipos/Plantillas.php">Plantillas</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Tipos/Cheques.php">Cheques</a></li>
                                 </ul>
                             </div>
                     <?php
@@ -85,13 +86,13 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Escuelas/EscuelaJesus.php">Escuela Jesús Jiménez Zamora</a></li>
-                                    <li><a class="dropdown-item" href="Escuelas/KinderJesusJimenez.php">Kinder Jesús Jimenez Zamora</a></li>
-                                    <li><a class="dropdown-item" href="Escuelas/EscuelaEsquivel.php">Escuela Esquivel Ibarra</a></li>
-                                    <li><a class="dropdown-item" href="Escuelas/KinderEsquivel.php">Kinder Esquivel Ibarra</a></li>
-                                    <li><a class="dropdown-item" href="Escuelas/EscuelaPadrePeralta.php">Escuela Padre Peralta</a></li>
-                                    <li><a class="dropdown-item" href="Escuelas/KinderPadrePeralta.php">Kinder Padre Peralta</a></li>  
-                                    <li><a class="dropdown-item" href="Escuelas/OficinaAdministrativa.php">Oficina administrativa</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Escuelas/EscuelaJesus.php">Escuela Jesús Jiménez Zamora</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Escuelas/KinderJesusJimenez.php">Kinder Jesús Jimenez Zamora</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Escuelas/EscuelaEsquivel.php">Escuela Esquivel Ibarra</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Escuelas/KinderEsquivel.php">Kinder Esquivel Ibarra</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Escuelas/EscuelaPadrePeralta.php">Escuela Padre Peralta</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Escuelas/KinderPadrePeralta.php">Kinder Padre Peralta</a></li>  
+                                    <li><a class="dropdown-item" href="../Documentos/Escuelas/OficinaAdministrativa.php">Oficina administrativa</a></li>
                                 </ul>
                             </div>
                     <?php
@@ -99,7 +100,7 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
 
                     <?php if ($_SESSION["rol"] == 1 && 3) {
                         ?><li class="nav-item">
-                                <a class="nav-link" href="listado.php">
+                                <a class="nav-link" href="../Documentos/listado.php">
                                     <i class=" bi bi-search"></i>Búsqueda De Documentos
                                 </a>
                             </li>
@@ -119,7 +120,7 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
                      
                      <?php if ($_SESSION["rol"] == 1) {
                         ?><li class="nav-item">
-                                <a class="nav-link" href="Ordenes_de_Compra/index.php">
+                                <a class="nav-link" href="../Documentos/Ordenes_de_Compra/index.php">
                                     <i class=" bi bi-file-earmark-arrow-down"></i>Ordenes De Compra
                                 </a>
                             </li>
@@ -239,16 +240,16 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
                 <div class="col">
                     <!-- Page pre-title -->
                     <div class="page-pretitle">
-                        Listado de documentos almacenados
+                    <i class="m-1 bi bi-floppy"></i>Listado de documentos almacenados
                     </div>
                     <h2 class="page-title">
-                        Control de Archivos 
+                    <i class="m-4 bi bi-folder-check"></i>Solicitudes Del Kinder Padre Peralta
                     </h2>
                 </div>
                 <!-- Page title actions -->
                 <div class="col-12 col-md-auto ms-auto d-print-none">
                     <div class="btn-list">
-                        <a href="registro.php" style="color: #ffffff; background-color: #001F3F;" class="btn d-none d-sm-inline-block">
+                        <a href="../registro.php" style="color: #ffffff; background-color: #001F3F;" class="btn d-none d-sm-inline-block">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -268,16 +269,17 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
                 <div class="col-12">
                     <div class="card">
 
-                        <div class="table table-responsive min-vh-100">
+                    <div class="table table-responsive min-vh-100">
                             <table class="table card-table table-vcenter text-nowrap datatable">
                                 <thead class="table-secondary">
                                 <tr>
 									<th class="th-list">Nombre</th>
+                                    <th class="th-list">Descripcion Detallada</th>
+                                    <th class="th-list">Razon de la solicitud</th>
 									<th class="th-list">Fecha Ingreso</th>
-									<th class="th-list">Tipo Documento</th>
-									<th class="th-list">Descripcion</th>
                                     <th class="th-list">Propietario</th>
-                                    <th class="th-list">Acción</th>
+                                    
+
                                     <th class="th-list"></th>
                                 </tr>
                                 </thead>
@@ -287,41 +289,32 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
                                 if($query->num_rows > 0){
                                 while ($row = $query->fetch_assoc()){
                                     $id = $row['id'];
-                                    $id_documento = $row['id_documento'];
-                                    $accion = $row['accion'];
-                                    $documentos = $conn->query("select * from documento where id = ".$id_documento."");
+                                    $id_usuario = $row['id_usuario'];
                                     //var_dump($doctores); -> sirve para  mostrar un objeto
-                                    if ($documentos->num_rows > 0) {
-                                        while ($row2 = $documentos->fetch_assoc()){
-                                            $nombre = $row2['nombre'];
-                                            $fecha_ingreso = $row2['fecha_ingreso'];
-                                            $tipo_documento = $row2['tipo_documento'];
-                                            $descripcion = $row2['descripcion'];
-                                            $nombre_archivo = $row2['url'];
-                                        }
-                                    }
-                                    $documentos_tipo = $conn->query("SELECT td.nombre AS tipo_documento
-                                                                        FROM control_documento cd
-                                                                        JOIN documento doc ON cd.id_documento = doc.id
-                                                                        JOIN tipo_documento td ON doc.tipo_documento = td.id
-                                                                        WHERE cd.id_documento = '".$id_documento."';");
+                                   
+                                            $nombre = $row['nombre_solicitud'];
+                                            $descripcion_detallada = $row['descripcion_detallada'];
+                                            $razon_solicitud = $row['razon_solicitud'];
+                                            $fecha = $row['fecha'];
+                                            //$nombre_archivo = $row['url'];
                                     
-                                    if ($documentos_tipo->num_rows > 0) {
-                                        while ($row3 = $documentos_tipo->fetch_assoc()){
-                                            $tipo = $row3['tipo_documento'];
-                                        }
-                                    }
+                                            $query_usuario = $conn->query("select * from usuario where id = ".$id_usuario."");
+                                            if ($query_usuario->num_rows > 0) {
+                                                while ($row4 = $query_usuario->fetch_assoc()){
+                                                    $usuarios = $row4['name'];
+                                                }
+                                            }
+        
 
                                     
                                     ?>
                                 <tbody>
                                     <tr>
-										<td class="td-list"><?php echo $nombre;?></td>
-										<td class="td-list"><?php echo $fecha_ingreso;?></td>
-										<td class="td-list"><?php echo $tipo;?></td>
-										<td class="td-list"><?php echo $descripcion;?></td>
-                                        <th class="th-list">Juanito Pérez</th>
-                                        <th class="th-list"><?php echo $accion;?></th>
+										<td class="td-list"><?php echo $nombre;?></td>                                      
+										<td class="td-list"><?php echo $descripcion_detallada;?></td>
+										<td class="td-list"><?php echo $razon_solicitud;?></td>
+                                        <th class="th-list"><?php echo $fecha;?></th>
+                                        <th class="th-list"><?php echo $usuarios;?></th>
                                         <td class="td-list">
                                             <div class="btn-list flex-nowrap">
                                                 <div class="dropdown">
@@ -341,7 +334,7 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
                                                                 Eliminar
                                                             </button>
                                                         </form>
-                                                        <a class="dropdown-item" href="http://localhost/Proyecto/Git/JuntaCartago/js/<?php echo $nombre_archivo; ?>">
+                                                        <a class="dropdown-item" href="#">
                                                             <i class="bi bi-download"></i>
                                                             Descargar
                                                         </a>
@@ -355,7 +348,7 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
                                 } else {
                                     echo "No hay registros.<br>";
                                 }
-                                ?>
+                                ?>              
                             </tbody>
 
                             </table>

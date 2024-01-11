@@ -28,45 +28,183 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
     <nav class="border-bottom border-2 navbar navbar-expand-lg nav-fondo">
         <div class="container-fluid">
             <a href="../index.php">
-                <img src="../img/logo.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+                <img src="../img/logo.svg" width="50" height="32" alt="Tabler" class="navbar-brand-image">
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="../index.php">
-                            <i class="m-2 bi bi-house"></i>Inicio
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="registro.php">
-                            <i class="m-2 bi bi-file-earmark-arrow-down"></i>Documentos
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="listado.php">
-                            <i class="m-2 bi bi-search"></i>Búsqueda de Documentos
-                        </a>
-                    </li>
-                    <?php if ($_SESSION["rol"] == 1) {
+                    <?php if ($_SESSION["rol"] == 1 && 2) {
                         ?><li class="nav-item">
-                                <a class="nav-link" href="control.php">
-                                    <i class="m-2 bi bi-folder-check"></i>Control de Archivos
+                                <a class="nav-link" aria-current="page" href="../index.php">
+                                    <i class=" bi bi-house"></i>Inicio
                                 </a>
                             </li>
                     <?php
                     } ?>
+                    
+                    <?php if ($_SESSION["rol"] == 1 && 3) {
+                        ?><li class="nav-item">
+                                <a class="nav-link" href="registro.php">
+                                    <i class=" bi bi-file-earmark-arrow-down"></i>Registro De Documentos
+                                </a>
+                            </li>                    
+                    <?php
+                     } ?>
+                     
+
+                    <?php if ($_SESSION["rol"] == 1 && 3) {
+                        ?><div class="dropdown">
+                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class=" bi bi-list-task"></i>Documentos
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="Tipos/Adjudicacion.php">Adjudicaciones</a></li>
+                                    <li><a class="dropdown-item" href="Tipos/Contrato.php">Contratos</a></li>
+                                    <li><a class="dropdown-item" href="Tipos/Actas.php">Actas</a></li>
+                                    <li><a class="dropdown-item" href="Tipos/Oficios.php">Oficios</a></li>
+                                    <li><a class="dropdown-item" href="Tipos/Expedientes.php">Expedientes</a></li>
+                                    <li><a class="dropdown-item" href="Tipos/OrdenesDeCompra.php">Ordenes de compra</a></li>  
+                                    <li><a class="dropdown-item" href="Tipos/Plantillas.php">Plantillas</a></li>
+                                    <li><a class="dropdown-item" href="Tipos/Cheques.php">Cheques</a></li>
+                                </ul>
+                            </div>
+                    <?php
+                     } ?>
+
+                     
+                    <?php if ($_SESSION["rol"] == 1 && 3) {
+                        ?><div class="dropdown">
+                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class=" bi bi-file-text"></i>Escuelas
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="Escuelas/EscuelaJesus.php">Escuela Jesús Jiménez Zamora</a></li>
+                                    <li><a class="dropdown-item" href="Escuelas/KinderJesusJimenez.php">Kinder Jesús Jimenez Zamora</a></li>
+                                    <li><a class="dropdown-item" href="Escuelas/EscuelaEsquivel.php">Escuela Esquivel Ibarra</a></li>
+                                    <li><a class="dropdown-item" href="Escuelas/KinderEsquivel.php">Kinder Esquivel Ibarra</a></li>
+                                    <li><a class="dropdown-item" href="Escuelas/EscuelaPadrePeralta.php">Escuela Padre Peralta</a></li>
+                                    <li><a class="dropdown-item" href="Escuelas/KinderPadrePeralta.php">Kinder Padre Peralta</a></li>  
+                                    <li><a class="dropdown-item" href="Escuelas/OficinaAdministrativa.php">Oficina administrativa</a></li>
+                                </ul>
+                            </div>
+                    <?php
+                    } ?>
+
+                    <?php if ($_SESSION["rol"] == 1 && 3) {
+                        ?><li class="nav-item">
+                                <a class="nav-link" href="listado.php">
+                                    <i class=" bi bi-search"></i>Búsqueda De Documentos
+                                </a>
+                            </li>
+                    <?php
+                     } ?>
+
+                    
+                    
                     <?php if ($_SESSION["rol"] == 1) {
                         ?><li class="nav-item">
                                 <a class="nav-link" href="../Inventario/index.php">
-                                    <i class="m-2 bi bi-card-checklist"></i>Inventario
+                                    <i class=" bi bi-card-checklist"></i>Inventario
+                                </a>
+                            </li>
+                    <?php
+                    } ?>
+                     
+                     <?php if ($_SESSION["rol"] == 1) {
+                        ?><li class="nav-item">
+                                <a class="nav-link" href="Ordenes_de_Compra/index.php">
+                                    <i class=" bi bi-file-earmark-arrow-down"></i>Ordenes De Compra
                                 </a>
                             </li>
                     <?php
                     } ?>
 
-                </ul>
-                <ul class="navbar-nav ms-auto">
+                    <?php if ($_SESSION["rol"] == 4) {
+                        ?><li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="../Solicitudes_Escuela/Solicitud_EscuelaEsquivel.php">
+                                    <i class=" bi bi-file-earmark-arrow-down"></i>Ver Solicitudes
+                                </a>
+                            </li>
+                    <?php
+                     } ?>
+
+                    <?php if ($_SESSION["rol"] ==6 ) {
+                        ?><li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="../Solicitud_EscuelaJesusJimez.php">
+                                    <i class=" bi bi-file-earmark-arrow-down"></i>Ver Solicitudes
+                                </a>
+                            </li>
+                    <?php
+                    } ?>
+
+                    <?php if ($_SESSION["rol"] == 8) {
+                        ?><li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="../Solicitud_EscuelaPadrePeralta.php">
+                                    <i class=" bi bi-file-earmark-arrow-down"></i>Ver Solicitudes
+                                </a>
+                            </li>
+                    <?php
+                    } ?>
+
+                    <?php if ($_SESSION["rol"] == 5) {
+                        ?><li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="../Solicitud_KinderEsquivel.php">
+                                    <i class=" bi bi-file-earmark-arrow-down"></i>Ver Solicitudes
+                                </a>
+                            </li>
+                    <?php
+                    } ?>
+
+                    <?php if ($_SESSION["rol"] == 7) {
+                        ?><li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="../Solicitud_KinderJesusJimenez.php">
+                                    <i class=" bi bi-file-earmark-arrow-down"></i>Ver Solicitudes
+                                </a>
+                            </li>
+                    <?php
+                    } ?>
+
+                    <?php if ($_SESSION["rol"] == 9) {
+                        ?><li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="../Solicitud_KinderPadrePeralta.php">
+                                    <i class=" bi bi-file-earmark-arrow-down"></i>Ver Solicitudes
+                                </a>
+                            </li>
+                    <?php
+                    } ?>
+
                     
+                    <?php if ($_SESSION["rol"] == 10) {
+                        ?><li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="../Solicitudes/Registro_Solicitud.php">
+                                    <i class=" bi bi-file-earmark-arrow-down"></i>Registrar Solicitud
+                                </a>
+                            </li>
+                    <?php
+                    } ?>
+
+                    <?php if ($_SESSION["rol"] == 1) {
+                        ?><div class="dropdown">
+                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class=" bi bi-file-text"></i>Solicitudes 
+                                </a>
+        
+                                <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="../Solicitudes/Solicitud_EscuelaJesusJimez.php">Escuela Jesús Jiménez Zamora</a></li>
+                                        <li><a class="dropdown-item" href="../Solicitudes/Solicitud_KinderJesusJimenez.php">Kinder Jesús Jimenez Zamora</a></li>
+                                        <li><a class="dropdown-item" href="../Solicitudes/Solicitud_EscuelaEsquivel.php">Escuela Esquivel Ibarra</a></li>
+                                        <li><a class="dropdown-item" href="../Solicitudes/Solicitud_KinderEsquivel.php">Kinder Esquivel Ibarra</a></li>
+                                        <li><a class="dropdown-item" href="../Solicitudes/Solicitud_EscuelaPadrePeralta.php">Escuela Padre Peralta</a></li>
+                                        <li><a class="dropdown-item" href="../Solicitudes/Solicitud_KinderPadrePeralta.php">Kinder Padre Peralta</a></li>                         
+                                </ul>                   
+                            </div>
+                    
+                    <?php
+                    } ?>
+
+                </ul>
+                <ul class="navbar-nav ms-auto">                    
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-bs-toggle="dropdown" aria-label="Open user menu" aria-expanded="false">
                             <div class="d-none d-xl-block ps-2">
@@ -74,10 +212,15 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">                    
+                            <a id="" href="../Perfil/index.php" class="dropdown-item">
+                                <i class="bi bi-person-bounding-box"></i> Perfil
+                            </a>    
+                        
                             <a id="cerrar" href="#" class="dropdown-item">
                                 <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
                             </a> 
                         </div>
+                        
                     </li>
                 </ul>
             </div>
@@ -126,20 +269,36 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
                                 </select>
                             </div>
                         </div>
-                            
+                 
                         <div class="col-sm-6">
-                            <label class="form-label">Descripción</label>
+                            <label class="form-label">Procedencia del archivo</label>
                             <div>
-                                <textarea class="form-control" name="desc_doc" id="desc_doc" rows="2" placeholder="Descripción"></textarea>
+                                <select name="tipo_procedencia" id="tipo_procedencia" class="form-control" placeholder="Tipo de Procedencia">
+                                    <option value="1">Escuela Jesús Jiménez Zamora</option>
+                                    <option value="2">Kinder Jesús Jimenez Zamora</option>
+                                    <option value="3">Escuela Esquivel Ibarra</option>
+                                    <option value="4">Kinder Esquivel Ibarra</option>
+                                    <option value="5">Escuela Padre Peralta</option>
+                                    <option value="6">Kinder Padre Peralta</option>
+                                    <option value="7">Oficina administrativa</option>
+                                </select>
                             </div>
                         </div>
+                        
                     </div>
+                    <br>
                     <div class="form-group row">
                         <div class="col-sm-6">
                             <label for="archivo" class="form-label">Cargar Documento</label>
-                            <input type="file" name="archivo" class="form-control form-control-file" id="archivo">
-                            <input type="hidden" id="nombre_archivo">
+                        <input type="file" name="archivo" class="form-control form-control-file" id="archivo">
+                        <input type="hidden" id="nombre_archivo">
                         </div>
+                            <div class="col-sm-6">
+                                <label class="form-label">Descripción</label>
+                                <div>
+                                    <textarea class="form-control" name="desc_doc" id="desc_doc" rows="2" placeholder="Descripción"></textarea>
+                                </div>
+                            </div>
                     </div>
                     <br>
                     <div class="form-footer">
@@ -150,7 +309,7 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
                             </div>
                         </div>
                     </div>           
-                </form>                                    
+                </form>                                     
             </div>  
         </div>
     </div>

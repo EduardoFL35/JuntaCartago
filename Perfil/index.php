@@ -5,24 +5,20 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
     $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
     header("location: http://$host/Proyecto/Git/JuntaCartago/login");// sino mandelo hacia acá
 }
-$query = $conn->query("select * from control_documento where estado = 1"); 
 
-if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
-    echo "<p>No tiene permisos</p>";
-    die();
-}
-
+$query = $conn->query("select * from usuario where rol = ".$_SESSION["rol"].";");
 //echo "<a id='cerrar'>".$_SESSION["nombre"]." ".$_SESSION["apellido"]." </a>";
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control de Archivos - Junta De Cartago</title>
+    <title>Perfil - Junta De Cartago</title>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="../js/documentos.js"></script>
+    <script src="../js/script.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -31,6 +27,7 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
 </head>
 </head>
 <body class="bg-light">
+
     <nav class="border-bottom border-2 navbar navbar-expand-lg nav-fondo">
         <div class="container-fluid">
             <a href="../index.php">
@@ -49,7 +46,7 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
                     
                     <?php if ($_SESSION["rol"] == 1 && 3) {
                         ?><li class="nav-item">
-                                <a class="nav-link" href="registro.php">
+                                <a class="nav-link" href="../Documentos/registro.php">
                                     <i class=" bi bi-file-earmark-arrow-down"></i>Registro De Documentos
                                 </a>
                             </li>                    
@@ -64,14 +61,14 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Tipos/Adjudicacion.php">Adjudicaciones</a></li>
-                                    <li><a class="dropdown-item" href="Tipos/Contrato.php">Contratos</a></li>
-                                    <li><a class="dropdown-item" href="Tipos/Actas.php">Actas</a></li>
-                                    <li><a class="dropdown-item" href="Tipos/Oficios.php">Oficios</a></li>
-                                    <li><a class="dropdown-item" href="Tipos/Expedientes.php">Expedientes</a></li>
-                                    <li><a class="dropdown-item" href="Tipos/OrdenesDeCompra.php">Ordenes de compra</a></li>  
-                                    <li><a class="dropdown-item" href="Tipos/Plantillas.php">Plantillas</a></li>
-                                    <li><a class="dropdown-item" href="Tipos/Cheques.php">Cheques</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Tipos/Adjudicacion.php">Adjudicaciones</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Tipos/Contrato.php">Contratos</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Tipos/Actas.php">Actas</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Tipos/Oficios.php">Oficios</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Tipos/Expedientes.php">Expedientes</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Tipos/OrdenesDeCompra.php">Ordenes de compra</a></li>  
+                                    <li><a class="dropdown-item" href="../Documentos/Tipos/Plantillas.php">Plantillas</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Tipos/Cheques.php">Cheques</a></li>
                                 </ul>
                             </div>
                     <?php
@@ -85,13 +82,13 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Escuelas/EscuelaJesus.php">Escuela Jesús Jiménez Zamora</a></li>
-                                    <li><a class="dropdown-item" href="Escuelas/KinderJesusJimenez.php">Kinder Jesús Jimenez Zamora</a></li>
-                                    <li><a class="dropdown-item" href="Escuelas/EscuelaEsquivel.php">Escuela Esquivel Ibarra</a></li>
-                                    <li><a class="dropdown-item" href="Escuelas/KinderEsquivel.php">Kinder Esquivel Ibarra</a></li>
-                                    <li><a class="dropdown-item" href="Escuelas/EscuelaPadrePeralta.php">Escuela Padre Peralta</a></li>
-                                    <li><a class="dropdown-item" href="Escuelas/KinderPadrePeralta.php">Kinder Padre Peralta</a></li>  
-                                    <li><a class="dropdown-item" href="Escuelas/OficinaAdministrativa.php">Oficina administrativa</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Escuelas/EscuelaJesus.php">Escuela Jesús Jiménez Zamora</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Escuelas/KinderJesusJimenez.php">Kinder Jesús Jimenez Zamora</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Escuelas/EscuelaEsquivel.php">Escuela Esquivel Ibarra</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Escuelas/KinderEsquivel.php">Kinder Esquivel Ibarra</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Escuelas/EscuelaPadrePeralta.php">Escuela Padre Peralta</a></li>
+                                    <li><a class="dropdown-item" href="../Documentos/Escuelas/KinderPadrePeralta.php">Kinder Padre Peralta</a></li>  
+                                    <li><a class="dropdown-item" href="../Documentos/Escuelas/OficinaAdministrativa.php">Oficina administrativa</a></li>
                                 </ul>
                             </div>
                     <?php
@@ -99,7 +96,7 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
 
                     <?php if ($_SESSION["rol"] == 1 && 3) {
                         ?><li class="nav-item">
-                                <a class="nav-link" href="listado.php">
+                                <a class="nav-link" href="../Documentos/listado.php">
                                     <i class=" bi bi-search"></i>Búsqueda De Documentos
                                 </a>
                             </li>
@@ -119,7 +116,7 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
                      
                      <?php if ($_SESSION["rol"] == 1) {
                         ?><li class="nav-item">
-                                <a class="nav-link" href="Ordenes_de_Compra/index.php">
+                                <a class="nav-link" href="../Documentos/Ordenes_de_Compra/index.php">
                                     <i class=" bi bi-file-earmark-arrow-down"></i>Ordenes De Compra
                                 </a>
                             </li>
@@ -233,152 +230,97 @@ if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
         </div>
     </nav>
 
-    <div class="page-header">
-        <div class="container-xl">
-            <div class="row g-2 align-items-center">
-                <div class="col">
-                    <!-- Page pre-title -->
-                    <div class="page-pretitle">
-                        Listado de documentos almacenados
-                    </div>
-                    <h2 class="page-title">
-                        Control de Archivos 
-                    </h2>
-                </div>
-                <!-- Page title actions -->
-                <div class="col-12 col-md-auto ms-auto d-print-none">
-                    <div class="btn-list">
-                        <a href="registro.php" style="color: #ffffff; background-color: #001F3F;" class="btn d-none d-sm-inline-block">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                            Agregar Documento
-                        </a>
+    <div class="p-5">
+        <div class="page-header">
+            <div class="container-xl">
+                <div class="row g-2 align-items-center">
+                    <div class="col">
+
+                        <h2 class="page-title">
+                        <i class=" m-2 bi bi-person-bounding-box"></i>Perfil del Empleado
+                        </h2>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="page-body">
-        <div class="container-xl">
-            <div class="row row-deck row-cards">
-                <div class="col-12">
-                    <div class="card">
+        <!-- Page body -->
+        <div class="page-body">
+            <div class="container-xl">
+                <div class="row row-deck row-cards">
+                    <div class="col-12">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                
+                                
+                                    <form>
+                                    <?php
 
-                        <div class="table table-responsive min-vh-100">
-                            <table class="table card-table table-vcenter text-nowrap datatable">
-                                <thead class="table-secondary">
-                                <tr>
-									<th class="th-list">Nombre</th>
-									<th class="th-list">Fecha Ingreso</th>
-									<th class="th-list">Tipo Documento</th>
-									<th class="th-list">Descripcion</th>
-                                    <th class="th-list">Propietario</th>
-                                    <th class="th-list">Acción</th>
-                                    <th class="th-list"></th>
-                                </tr>
-                                </thead>
-
-                                <?php
-
-                                if($query->num_rows > 0){
-                                while ($row = $query->fetch_assoc()){
-                                    $id = $row['id'];
-                                    $id_documento = $row['id_documento'];
-                                    $accion = $row['accion'];
-                                    $documentos = $conn->query("select * from documento where id = ".$id_documento."");
-                                    //var_dump($doctores); -> sirve para  mostrar un objeto
-                                    if ($documentos->num_rows > 0) {
-                                        while ($row2 = $documentos->fetch_assoc()){
-                                            $nombre = $row2['nombre'];
-                                            $fecha_ingreso = $row2['fecha_ingreso'];
-                                            $tipo_documento = $row2['tipo_documento'];
-                                            $descripcion = $row2['descripcion'];
-                                            $nombre_archivo = $row2['url'];
-                                        }
-                                    }
-                                    $documentos_tipo = $conn->query("SELECT td.nombre AS tipo_documento
-                                                                        FROM control_documento cd
-                                                                        JOIN documento doc ON cd.id_documento = doc.id
-                                                                        JOIN tipo_documento td ON doc.tipo_documento = td.id
-                                                                        WHERE cd.id_documento = '".$id_documento."';");
-                                    
-                                    if ($documentos_tipo->num_rows > 0) {
-                                        while ($row3 = $documentos_tipo->fetch_assoc()){
-                                            $tipo = $row3['tipo_documento'];
-                                        }
-                                    }
-
-                                    
-                                    ?>
-                                <tbody>
-                                    <tr>
-										<td class="td-list"><?php echo $nombre;?></td>
-										<td class="td-list"><?php echo $fecha_ingreso;?></td>
-										<td class="td-list"><?php echo $tipo;?></td>
-										<td class="td-list"><?php echo $descripcion;?></td>
-                                        <th class="th-list">Juanito Pérez</th>
-                                        <th class="th-list"><?php echo $accion;?></th>
-                                        <td class="td-list">
-                                            <div class="btn-list flex-nowrap">
-                                                <div class="dropdown">
-                                                    <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
-                                                        Opciones
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item" href="#">
-                                                            <i class="bi bi-pencil-square"></i>
-                                                           Editar
-                                                        </a>
-                                                        <form action="#" method="POST">
-                                                            <input type="hidden" name="_token" value="2atWpGYdcoqQKeHMiUHLvChu6BuXb1n6aW0VWbDa" autocomplete="off">
-                                                            <input type="hidden" name="_method" value="DELETE">
-                                                            <button type="submit"  class=" eliminar_control dropdown-item text-red">
-                                                                <i class="bi bi-eraser"></i>    
-                                                                Eliminar
-                                                            </button>
-                                                        </form>
-                                                        <a class="dropdown-item" href="http://localhost/Proyecto/Git/JuntaCartago/js/<?php echo $nombre_archivo; ?>">
-                                                            <i class="bi bi-download"></i>
-                                                            Descargar
-                                                        </a>
+                                        if($query->num_rows > 0){
+                                        while ($row = $query->fetch_assoc()){
+                                            $id = $row['id'];
+                                            $nombre = $row['name'];
+                                            $apellido = $row['apellido'];
+                                            $cedula = $row['cedula'];
+                                            $correo = $row['correo'];
+                                            
+                                            
+                                            ?>
+                                            <form action="">
+                                                <fieldset disabled>
+                                                    <legend>Datos del Empleado</legend>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-6">
+                                                            <label class="form-label">Nombre</label>
+                                                            <div>
+                                                                <input type="text" class="form-control" id="nombre_usr" name="nombre_usr" placeholder="<?php echo $nombre;?>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="form-label">Apellidos</label>
+                                                            <div>
+                                                                <input type="text" class="form-control" id="apellido_usr" name="apellido_usr" placeholder="<?php echo $apellido;?>">
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                                    <br>
+                                                    <div class="mb-3">
+                                                        <label for="disabledTextInput" class="form-label">Cédula</label>
+                                                        <input type="text" id="disabledTextInput" class="form-control" placeholder="<?php echo $cedula;?>">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="disabledTextInput" class="form-label">Correo</label>
+                                                        <input type="text" id="disabledTextInput" class="form-control" placeholder="<?php echo $correo;?>">
+                                                    </div>
+                                                    
+                                                    
+                                                </fieldset>
+                                                <a class="btn ms-auto" style="color: #ffffff; background-color: #001F3F;" href="../Vacaciones/registro_vacaciones.php">Solicitar Vacaciones Vacaciones</a>
+                                            </form>
                                 <?php
                                     }
                                 } else {
                                     echo "No hay registros.<br>";
                                 }
                                 ?>
-                            </tbody>
-
-                            </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <footer class="mt-5 py-3 bg-light">
+            <div class="container text-center">
+                <p>&copy; 2023 Junta De Cartago Centro. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    
     </div>
-
-
-    
-    <footer class="mt-5 py-3 bg-light">
-        <div class="container text-center">
-            <p>&copy; 2023 Junta De Cartago Centro. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-    
-
 
 <!-- Enlace al archivo JS de Popper.js (puedes utilizar un CDN o descargarlo localmente) -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <!-- Enlace al archivo JS de Bootstrap (opcional, pero necesario para algunos componentes interactivos) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

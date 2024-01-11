@@ -5,6 +5,12 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
     $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
     header("location: http://$host/Proyecto/Git/JuntaCartago/login");// sino mandelo hacia acá
 }
+$query = $conn->query("select * from documento where id_procedencia = 4"); 
+
+if($_SESSION["rol"] != 1){//Redirecciono a una página cuando no tiene permisos
+    echo "<p>No tiene permisos</p>";
+    die();
+}
 
 //echo "<a id='cerrar'>".$_SESSION["nombre"]." ".$_SESSION["apellido"]." </a>";
 ?>
@@ -13,12 +19,11 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Activos - Junta De Cartago</title>
+    <title>Documentos - Junta De Cartago</title>
     <link rel="stylesheet" href="../../css/styles.css">
-    <link rel="stylesheet" href="../../css/activos.css">
-    <link rel="stylesheet" href="../../css/inventario.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="../../js/activos.js"></script>
+    <script src="../js/documentos.js"></script>
+    <script src="../js/script.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -26,7 +31,7 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Georgia+Pro&family=Roboto:wght@400&display=swap">
 </head>
 </head>
-<body>
+<body class="bg-light">
     <nav class="border-bottom border-2 navbar navbar-expand-lg nav-fondo">
         <div class="container-fluid">
             <a href="../../index.php">
@@ -229,212 +234,149 @@ if (!isset($_SESSION["username"])) { //SI LA VARIABLE NO ESTÁ DEFINIDA
         </div>
     </nav>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
-                <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
-                    <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="#" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="true">
-                                    <i class="bi bi-box-seam"></i>Activos
-                                </a>
-                                <div class="collapse" id="dashboard-collapse">
-                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                        <li><a href="index.php" class="items">Control de activos</a></li>
-                                        <li><a href="listado.php" class="items">Listado de activos</a></li>
-                                        <li><a href="registro.php" class="items">Agregar activo</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="../Garantia/index.php">
-                                    <i class="bi bi-hourglass-split"></i>
-                                    Garantía
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="#" data-bs-toggle="collapse" data-bs-target="#Limpieza" aria-expanded="true">
-                                    <i class="bi bi-wrench"></i>Productos de Limpieza
-                                </a>
-                                <div class="collapse" id="Limpieza">
-                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                        <li><a href="../Productos_Limpieza/index.php" class="items">Control de productos de limpieza</a></li>
-                                        <li><a href="../Productos_Limpieza/listado.php" class="items">Listado de productos de limpieza</a></li>
-                                        <li><a href="../Productos_Limpieza/registro.php" class="items">Agregar producto</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link nav-link d-flex align-items-center gap-2" href="../../Documentos/control.php">
-                                    <i class=" bi bi-folder-check"></i>Control De Archivos
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link nav-link d-flex align-items-center gap-2" href="../../Vacaciones/listado_vacaciones.php">
-                                    <i class=" bi bi-search"></i>Solicitudes de Vacaciones
-                                </a>
-                            </li>
-                        </ul>
+    <div class="page-header">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <!-- Page pre-title -->
+                    <div class="page-pretitle">
+                    <i class="m-1 bi bi-floppy"></i>Listado de documentos almacenados
+                    </div>
+                    <h2 class="page-title">
+                    <i class="m-4 bi bi-folder-check"></i>Documentos del Kinder Esquivel
+                    </h2>
+                </div>
+                <!-- Page title actions -->
+                <div class="col-12 col-md-auto ms-auto d-print-none">
+                    <div class="btn-list">
+                        <a href="../registro.php" style="color: #ffffff; background-color: #001F3F;" class="btn d-none d-sm-inline-block">
+                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Agregar Documento
+                        </a>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="row row-deck row-cards">
+                <div class="col-12">
+                    <div class="card">
 
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div class="pt-3 pb-2 mb-3 ">
-                    <div class="border-bottom">
-                        <H1>Nuevo Activo</H1>
+                    <div class="table table-responsive min-vh-100">
+                            <table class="table card-table table-vcenter text-nowrap datatable">
+                                <thead class="table-secondary">
+                                <tr>
+									<th class="th-list">Nombre</th>
+                                
+									<th class="th-list">Fecha Ingreso</th>
+									<th class="th-list">Descripcion</th>
+                                    <th class="th-list">Propietario</th>
+                                    
+
+                                    <th class="th-list"></th>
+                                </tr>
+                                </thead>
+
+                                <?php
+
+                                if($query->num_rows > 0){
+                                while ($row = $query->fetch_assoc()){
+                                    $id = $row['id'];
+                                    $id_usuario = $row['id_usuario'];
+                                   
+                                            $nombre = $row['nombre'];
+                                            $fecha_ingreso = $row['fecha_ingreso'];
+                                            $tipo_documento = $row['tipo_documento'];
+                                            $descripcion = $row['descripcion'];
+                                            $nombre_archivo = $row['url'];
+                                    
+                                            $id_procedencia = $row ['id_procedencia'];
+                                            $procedencias = $conn->query("select * from procedencia where id = ".$id_procedencia."");
+                                            if ($procedencias->num_rows > 0) {
+                                                while ($row3 = $procedencias->fetch_assoc()){
+                                                    $nombre_procedencia = $row3['nombre'];
+                                                }
+                                            }
+                                            $query_usuario = $conn->query("select * from usuario where id = ".$id_usuario."");
+                                            if ($query_usuario->num_rows > 0) {
+                                                while ($row4 = $query_usuario->fetch_assoc()){
+                                                    $usuarios = $row4['name'];
+                                                }
+                                            }
+        
+
+                                    
+                                    ?>
+                                <tbody>
+                                    <tr>
+										<td class="td-list"><?php echo $nombre;?></td>                                     
+										<td class="td-list"><?php echo $fecha_ingreso;?></td>
+										<td class="td-list"><?php echo $descripcion;?></td>
+                                        <th class="th-list"><?php echo $usuarios;?></th>
+                                        <td class="td-list">
+                                            <div class="btn-list flex-nowrap">
+                                                <div class="dropdown">
+                                                    <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
+                                                        Opciones
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a class="dropdown-item" href="#">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                           Editar
+                                                        </a>
+                                                        <form action="#" method="POST">
+                                                            <input type="hidden" name="_token" value="2atWpGYdcoqQKeHMiUHLvChu6BuXb1n6aW0VWbDa" autocomplete="off">
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <button type="submit"  class=" eliminar_control dropdown-item text-red">
+                                                                <i class="bi bi-eraser"></i>    
+                                                                Eliminar
+                                                            </button>
+                                                        </form>
+                                                        <a class="dropdown-item" href="http://localhost/Proyecto/Git/JuntaCartago/js/<?php echo $nombre_archivo; ?>">
+                                                            <i class="bi bi-download"></i>
+                                                            Descargar
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php
+                                    }
+                                } else {
+                                    echo "No hay registros.<br>";
+                                }
+                                ?>
+                            </tbody>
+
+                            </table>
+                        </div>
                     </div>
                 </div>
-                <div class="container my-4">
-                    <div id="alerta_registro">
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Registro de Activos</h3>  
-                        </div>
-                        <div class="card-body">
-                            <form id="activo_form">
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <label class="form-label">Código</label>
-                                        <div>
-                                            <input type="text" class="form-control" placeholder="Código" id="codigo_activo" name="codigo_activo">
-                                        </div>
-                                    </div>
-                                
-                                    <div class="col-sm-6">
-                                        <label class="form-label">Nombre</label>
-                                        <div>
-                                            <input type="text" class="form-control" placeholder="Nombre" id="nombre_activo" name="nombre_activo">
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <label class="form-label">Descripción</label>
-                                        <div>
-                                            <textarea class="form-control" name="desc_activo" id="desc_activo" rows="2" placeholder="Descripción"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="archivo" class="form-label">Monto</label>
-                                        <input type="number" class="form-control" value="0" name="monto_activo" id="monto_activo" placeholder="Monto Total"/>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <label for="archivo" class="form-label">Cantidad</label>
-                                        <input type="number" class="form-control" value="0" name="cantidad_activo" id="cantidad_activo" placeholder="Cantidad Total"/>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="archivo" class="form-label">Cantidad Mínima</label>
-                                        <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Cantidad Mínima del Activo">
-                                            <i class="bi bi-question-circle"></i>
-                                        </span>
-                                        <input type="number" class="form-control" value="0" name="cantidad_minima_activo" id="cantidad_minima_activo" placeholder="Cantidad Mínima del Activo"/>
-                                    </div>
-                                </div>
-                                <br> 
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <label for="factura_activo" class="form-label">Cargar Factura</label>
-                                        <input type="file" name="factura_activo" class="form-control form-control-file" id="factura_activo">
-                                        <input type="hidden" id="nombre_factura">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="imagen_activo" class="form-label">Cargar Imagen</label>
-                                        <input type="file" name="imagen_activo" class="form-control form-control-file" id="imagen_activo">
-                                        <input type="hidden" id="nombre_imagen">
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <label class="form-label">Fecha de inicio de la garantía</label>
-                                        <div>
-                                            <input type="date" name="fecha_inicio_activo" id="fecha_inicio_activo" class="form-control" placeholder="Fecha de inicio de la garantía">
-                                        </div>
-                                    </div>   
-                                    <div class="col-sm-6">
-                                        <label class="form-label">Fecha de final de la garantía</label>
-                                        <div>
-                                            <input type="date" name="fecha_final_activo" id="fecha_final_activo" class="form-control" placeholder="Fecha de final de la garantía">
-                                        </div>
-                                    </div>  
-                                </div>
-                                <br>
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <label class="form-label">Estado</label>
-                                        <div>
-                                            <select name="estado_activo" id="estado_activo" class="form-select" placeholder="Estado">
-                                                <option value="1">Nuevo</option>
-                                                <option value="2">Agotado</option>
-                                                <option value="3">Dañado</option>
-                                                <option value="4">En reparación</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label class="form-label">Color</label>
-                                        <div>
-                                            <select name="color_activo" id="color_activo" class="form-select" placeholder="Color">
-                                                <option value="1">Negro</option>
-                                                <option value="2">Blanco</option>
-                                                <option value="3">Azul</option>
-                                                <option value="4">Café</option>
-                                                <option value="5">Verde</option>
-                                                <option value="6">Rojo</option>
-                                                <option value="7">Gris</option>
-                                                <option value="8">Celeste</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <label class="form-label">Nota</label>
-                                        <div>
-                                            <textarea class="form-control" name="nota_activo" id="nota_activo" rows="2" placeholder="Nota"></textarea>
-                                        </div>
-                                    </div>
-                                </div> 
-                                <br>
-                                <div class="form-footer">
-                                    <div class="text-end">
-                                        <div class="d-flex">
-                                            <a href="../../Inventario/index.php" class="btn btn-danger">Volver atrás</a>
-                                            <button id="action" type="submit" style="color: #ffffff; background-color: #001F3F;" class="btn ms-auto">Guardar</button>
-                                        </div>
-                                    </div>
-                                </div>           
-                            </form>                                    
-                        </div>  
-                    </div>
-                </div> 
-            </main>
+            </div>
         </div>
-    </div> 
+    </div>
+
 
     
-
     <footer class="mt-5 py-3 bg-light">
         <div class="container text-center">
             <p>&copy; 2023 Junta De Cartago Centro. Todos los derechos reservados.</p>
         </div>
     </footer>
+    
+
+
 <!-- Enlace al archivo JS de Popper.js (puedes utilizar un CDN o descargarlo localmente) -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <!-- Enlace al archivo JS de Bootstrap (opcional, pero necesario para algunos componentes interactivos) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
-<script>
-    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
-</script>
 </body>
 </html>

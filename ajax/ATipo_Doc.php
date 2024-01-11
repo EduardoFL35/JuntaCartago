@@ -3,81 +3,13 @@ session_start();
 include "../config.php";
 //var_dump($_POST);
 //die();
+if (isset($_POST['key_editar']) == "editar_documento") {
 
-//Insertar Doc
-if(isset($_POST['key_registro']) == "registro_doc"){
-    $nombre_doc = $_POST['nombre_doc'];
-    $fecha_doc = $_POST['fecha_doc']; 
-    $tipo_doc = $_POST['tipo_doc'];
-    $desc_doc = $_POST['desc_doc'];
-    $nombre_archivo = "archivos/".$_POST['nombre_archivo'];
-    $tipo_procedencia = $_POST['tipo_procedencia'];
-    $id_usuario = $_SESSION["id_user"];
-
-    $sql = "INSERT INTO documento(nombre, fecha_ingreso, tipo_documento, descripcion, estado, url, id_usuarioid_procedencia) 
-                                VALUES ('".$nombre_doc."','".$fecha_doc."','".$tipo_doc."','".$desc_doc."',1, '".$nombre_archivo."', '".$id_usuario."','".$tipo_procedencia."')";
-    
-
-	if ($conn->query($sql) === TRUE) {
-        echo "1";//Succes
-      } else {
-        echo "a";//Error
-      }
-      
-      $conn->close();
-	
-//Subir archivo      
-}elseif(isset($_FILES["archivo"])){
-    $file = $_FILES["archivo"];
-    $nombre_formato = $file["name"];
-    $nombre = str_replace(" ", "", $nombre_formato);
-    $tipo = $file["type"];
-    $ruta_provisional = $file["tmp_name"];//donde está ahorita el archivo en el sv
-    $size = $file["size"];
-    $carpeta_destino = "D:/wamp64/www/Proyecto/Git/JuntaCartago/js/archivos/";//Servidor local
-    $fecha = date("Y-m-d H:i:s");
-    $hoy = date("Y-m-d");
-    $key_fecha = strtotime($fecha);//cambia la fecha por una cadena 
-
-    if (!file_exists($carpeta_destino)) {
-        mkdir($carpeta_destino, 0777, true);
-    }
-    if (!is_uploaded_file($ruta_provisional)) {
-        // Manejar el error aquí
-        echo 'El archivo no se ha cargado correctamente.';
-        exit;
-    }
-
-    $nombre_archivo = $key_fecha.$nombre;
-        $src2 = $carpeta_destino.$nombre_archivo;
-        if(move_uploaded_file($ruta_provisional,$src2)){
-            $file=$src2;
-            $resizedFile=$file;
-            echo $nombre_archivo;
-            die();
-        }else{
-            echo "a";
-        }
-
-//Cambiar estado de eliminar
-}elseif (isset($_POST['key_eliminar']) == "eliminar_tarea") {
-    $id_documento = $_POST['id_documento'];
-    $eliminar = "UPDATE `documento` SET `estado`= 0 WHERE id = '$id_documento';";
-      
-    if ($conn->query($eliminar) === TRUE) {
-        echo "1";//Succes
-        } else {
-        echo "a";//Error
-        }
-        
-    $conn->close();
-
-//Editar documento    
-}elseif (isset($_POST['key_editar']) == "editar_documento") {
-
-    $id_edit = $_POST['id_edit'];
+    $id_edit = $_POST['id_edit_tipo'];
     $editDoc = "SELECT * FROM documento WHERE id = $id_edit";
     $query = $conn->query($editDoc);  
+
+
 
     if($query->num_rows > 0){
         while ($row = $query->fetch_assoc()){
@@ -92,6 +24,9 @@ if(isset($_POST['key_registro']) == "registro_doc"){
         }
     }
     ?>
+    <div class="p-2">
+        <div id="alerta_registro">
+        </div>
         <form id="documento_form_editar">
             <input type="hidden" id="id_documento_editar" value="<?php echo $id_edit?>">
             <div class="form-group row">
@@ -231,38 +166,28 @@ if(isset($_POST['key_registro']) == "registro_doc"){
                     </div>
                 </div>
             </div>           
-        </form> 
+        </form>
+    </div>     
     <?php
 
-}elseif (isset($_POST['key_eliminar_control']) == "eliminar_control") {
-    $id_control = $_POST['id_control'];
-    $eliminar = "UPDATE `control_documento` SET `estado`= 1 WHERE id = '$id_control';";
-      
-    if ($conn->query($eliminar) === TRUE) {
-        echo "1";//Succes
-        } else {
-        echo "a";//Error
-        }
-        
-    $conn->close();
 }elseif(isset($_POST['key_editar_registro']) == "editar_registro_doc"){
     $id_documento_editar = $_POST['id_documento_editar'];
-    $nombre_doc = $_POST['nombre_doc_editar'];
-    $fecha_doc = $_POST['fecha_doc_editar']; 
-    $tipo_doc = $_POST['tipo_doc_editar'];
-    $desc_doc = $_POST['desc_doc_editar'];
-    $tipo_procedencia = $_POST['tipo_procedencia'];
-    $nombre_archivo = "archivos/".$_POST['nombre_archivo_editar'];
+    $nombre_doc_editar = $_POST['nombre_doc_editar'];
+    $fecha_doc_editar = $_POST['fecha_doc_editar']; 
+    $tipo_doc_editar = $_POST['tipo_doc_editar'];
+    $desc_doc_editar = $_POST['desc_doc_editar'];
+    $tipo_procedencia_editar = $_POST['tipo_procedencia_editar'];
+    $nombre_archivo_editar = "archivos/".$_POST['nombre_archivo_editar'];
     $id_usuario = $_SESSION["id_user"];
 
 
-    $editar_doc = "UPDATE `documento` SET `nombre`='".$nombre_doc."',
-                                          `fecha_ingreso`='".$fecha_doc."',
+    $editar_doc = "UPDATE `documento` SET `nombre`='".$nombre_doc_editar."',
+                                          `fecha_ingreso`='".$fecha_doc_editar."',
                                           `tipo_documento`=".$tipo_doc.",
-                                          `descripcion`='".$desc_doc."',
-                                          `url`='".$nombre_archivo."',
+                                          `descripcion`='".$desc_doc_editar."',
+                                          `url`='".$nombre_archivo_editar."',
                                           `id_usuario`=".$id_usuario.",
-                                          `id_procedencia`=".$tipo_procedencia."
+                                          `id_procedencia`=".$tipo_procedencia_editar."
                                            WHERE id = '".$id_documento_editar."'";
       
     if ($conn->query($editar_doc) === TRUE) {
@@ -280,4 +205,5 @@ if(isset($_POST['key_registro']) == "registro_doc"){
     header('HTTP/1.1 500 Error, intenta de nuevo!');
     //exit();
 }
+
 ?>
