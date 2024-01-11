@@ -6,7 +6,7 @@ jQuery(document).ready( function () {
         var procedencia_soli = jQuery("#procedencia_soli").val();
         var desc_detallada_soli = jQuery("#desc_detallada_soli").val();
         var desc_fundamentada_soli = jQuery("#desc_fundamentada_soli").val();
-        var nombre_archivo = jQuery("#nombre_archivo").val();
+        var nombre_archivo = jQuery("#nombre_imagen").val();
         var fecha_soli = jQuery("#fecha_soli").val();
         jQuery("#nombre_soli").css("border", "");
         jQuery("#procedencia_soli").css("border", "");

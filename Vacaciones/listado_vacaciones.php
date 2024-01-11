@@ -243,15 +243,7 @@ $query = $conn->query("select * from vacaciones where estado = 1");
                 <!-- Page title actions -->
                 <div class="col-12 col-md-auto ms-auto d-print-none">
                     <div class="btn-list">
-                        <a href="registro.php" style="color: #ffffff; background-color: #001F3F;" class="btn d-none d-sm-inline-block">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                            Agregar Documento
-                        </a>
+                        
                     </div>
                 </div>
             </div>
@@ -271,7 +263,6 @@ $query = $conn->query("select * from vacaciones where estado = 1");
                                     <th class="th-list">Fecha Final</th>
                                     <th class="th-list">Estado</th>
                                     <th class="th-list">Fecha en que realizó la solicitud</th>
-                                    <th class="th-list"></th>
                                 </tr>
                                 </thead>
 
@@ -283,16 +274,12 @@ $query = $conn->query("select * from vacaciones where estado = 1");
                                     $id_usuario = $row ['id_usuario'];
                                     $fecha_inicio = $row['fecha_inicio'];
                                     $fecha_final = $row['fecha_final'];
-                                    $id_estado = $row ['id_usuario'];
+                                    $id_estado_solicitud = $row ['id_estado_solicitud'];
                                     $fecha_ingreso = $row['created_at'];
 
-                                    $estados = $conn->query("select * from estado_solicitud where id = ".$id_estado."");
+                                    
 
-                                    if ($estados->num_rows > 0) {
-                                        while ($row4 = $estados->fetch_assoc()){
-                                            $estados_nombre = $row4['estado_soli'];
-                                        }
-                                    }
+                                    
                                     $usuarios = $conn->query("select * from usuario where id = ".$id_usuario."");
 
                                     if ($usuarios->num_rows > 0) {
@@ -308,33 +295,27 @@ $query = $conn->query("select * from vacaciones where estado = 1");
                                             <td class="td-list"><?php echo $usuario_nombre; ?></td>
                                             <td class="td-list"><?php echo $fecha_inicio; ?></td>
                                             <td class="td-list"><?php echo $fecha_final; ?></td>
-                                            <td class="td-list"><?php echo $estados_nombre; ?></td>
+                                            <td class="td-list"><select class="form-select" id_vacaciones="<?php echo $id; ?>" name="id_cambiar_estado" id="id_cambiar_estado">
+                                                                <?php 
+                                                                    if ($id_estado_solicitud == 1) {
+                                                                        echo '<option value="1" selected>Aprobada</option>';
+                                                                    }else{
+                                                                        echo '<option value="1" >Aprobada</option>';
+                                                                    }
+                                                                    if ($id_estado_solicitud == 2) {
+                                                                        echo '<option value="2" selected>Rechazada</option>';
+                                                                    }else{
+                                                                        echo '<option value="2" >Rechazada</option>';
+                                                                    }
+                                                                    if ($id_estado_solicitud == 3) {
+                                                                        echo '<option value="3" selected>En Proceso</option>';
+                                                                    }else{
+                                                                        echo '<option value="3" >En Proceso</option>';
+                                                                    }
+                                                                    ?>
+                                                                
+                                                                </select></td>
                                             <td class="td-list"><?php echo $fecha_ingreso; ?></td>
-                                            <td class="td-list">
-                                            <div class="btn-list flex-nowrap">
-                                                <div class="dropdown">
-                                                    <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
-                                                        Opciones
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <a id="btn_editar_doc" class="dropdown-item" data-bs-toggle="modal" data_id="<?php echo $id;?>" data-bs-target="#modalEditar">
-                                                            <i class="bi bi-pencil-square"></i>
-                                                           Editar
-                                                        </a>
-  
-                                                        <a data-id="<?php echo $id;?>" class=" eliminar dropdown-item text-red">
-                                                            <i class="bi bi-eraser"></i>    
-                                                            Eliminar
-                                                        </a>
-
-                                                        <a id="btn_descargar_doc" class="dropdown-item" href="#">
-                                                            <i class="bi bi-download"></i>
-                                                            Descargar
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
                                         </tr>
                                 <?php
                                     }

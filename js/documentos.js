@@ -58,7 +58,7 @@ function funcion_modal_editar (){
         var tipo_doc_editar = jQuery("#tipo_doc_editar").val();
         var desc_doc_editar = jQuery("#desc_doc_editar").val();
         var nombre_archivo_editar = jQuery("#nombre_archivo_editar").val();
-        var tipo_procedencia = jQuery("#tipo_procedencia").val();
+        var tipo_procedencia = jQuery("#tipo_procedencia_editar").val();
         var id_documento_editar = jQuery("#id_documento_editar").val(); 
         jQuery("#nombre_doc_editar").css("border", "");
         jQuery("#fecha_doc_editar").css("border", "");
@@ -102,7 +102,7 @@ function funcion_modal_editar (){
                 desc_doc_editar: desc_doc_editar,
                 nombre_archivo_editar : nombre_archivo_editar,
                 id_documento_editar : id_documento_editar,
-                tipo_procedencia: tipo_procedencia
+                tipo_procedencia : tipo_procedencia
 			},             
 			success:function(ndata){  
                 console.log("->" + ndata);
@@ -142,6 +142,7 @@ jQuery(document).ready( function () {
         var fecha_doc = jQuery("#fecha_doc").val();
         var tipo_doc = jQuery("#tipo_doc").val();
         var desc_doc = jQuery("#desc_doc").val();
+        var tipo_procedencia = jQuery("#tipo_procedencia").val();
         var nombre_archivo = jQuery("#nombre_archivo").val();
         jQuery("#nombre_doc").css("border", "");
         jQuery("#fecha_doc").css("border", "");
@@ -179,7 +180,8 @@ jQuery(document).ready( function () {
                 fecha_doc: fecha_doc,
                 tipo_doc: tipo_doc,
                 desc_doc: desc_doc,
-                nombre_archivo : nombre_archivo
+                nombre_archivo : nombre_archivo,
+                tipo_procedencia :tipo_procedencia
 			},             
 			success:function(ndata){  
                 console.log(ndata);

@@ -36,7 +36,7 @@ if(isset($_POST['key_registro_soli']) == "registro_soli"){
     $tipo_img = $file_img["type"];
     $ruta_provisional_img = $file_img["tmp_name"];//donde está ahorita el archivo en el sv
     $size_img = $file_img["size"];
-    $carpeta_destino_img = "D:/wamp64/www/Proyecto/Git/JuntaCartago/archivos/";//Servidor local
+    $carpeta_destino_img = "D:/wamp64/www/Proyecto/Git/JuntaCartago/js/archivos/";//Servidor local
     $fecha_img = date("Y-m-d H:i:s");
     $hoy_img = date("Y-m-d");
     $key_fecha_img = strtotime($fecha_img);//cambia la fecha por una cadena 

@@ -295,7 +295,7 @@ $query = $conn->query("select * from usuario where rol = ".$_SESSION["rol"].";")
                                                     
                                                     
                                                 </fieldset>
-                                                <a class="btn ms-auto" style="color: #ffffff; background-color: #001F3F;" href="../Vacaciones/registro_vacaciones.php">Solicitar Vacaciones Vacaciones</a>
+                                                <a class="btn ms-auto" style="color: #ffffff; background-color: #001F3F;" href="../Vacaciones/registro_vacaciones.php">Solicitar Vacaciones</a>
                                             </form>
                                 <?php
                                     }

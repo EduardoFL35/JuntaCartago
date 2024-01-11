@@ -14,7 +14,7 @@ if(isset($_POST['key_registro']) == "registro_doc"){
     $tipo_procedencia = $_POST['tipo_procedencia'];
     $id_usuario = $_SESSION["id_user"];
 
-    $sql = "INSERT INTO documento(nombre, fecha_ingreso, tipo_documento, descripcion, estado, url, id_usuarioid_procedencia) 
+    $sql = "INSERT INTO documento(nombre, fecha_ingreso, tipo_documento, descripcion, estado, url, id_usuario, id_procedencia) 
                                 VALUES ('".$nombre_doc."','".$fecha_doc."','".$tipo_doc."','".$desc_doc."',1, '".$nombre_archivo."', '".$id_usuario."','".$tipo_procedencia."')";
     
 
@@ -92,6 +92,9 @@ if(isset($_POST['key_registro']) == "registro_doc"){
         }
     }
     ?>
+    <div class="p-2">
+        <div id="alerta_registro">
+        </div>
         <form id="documento_form_editar">
             <input type="hidden" id="id_documento_editar" value="<?php echo $id_edit?>">
             <div class="form-group row">
@@ -232,6 +235,7 @@ if(isset($_POST['key_registro']) == "registro_doc"){
                 </div>
             </div>           
         </form> 
+    </div>   
     <?php
 
 }elseif (isset($_POST['key_eliminar_control']) == "eliminar_control") {
